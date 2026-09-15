@@ -211,6 +211,14 @@
   th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--border); }
   th { color: var(--muted); font-weight: 700; }
   .modal .close-row { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+  .review-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .rpill { border: 1px solid var(--border); background: #fff; color: var(--text); border-radius: 24px; padding: 7px 16px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .12s; }
+  .rpill:hover { border-color: var(--accent); }
+  .rpill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .rpill .n { font-weight: 800; }
+  .rpill.correct .n { color: var(--green); }
+  .rpill.incorrect .n { color: var(--red); }
+  .rpill.active .n { color: #fff; }
 </style>
 </head>
 <body>
@@ -228,9 +236,12 @@
 
 <div class="wrap">
   <div class="card">
-    <div id="reviewBanner" style="display:none; align-items:center; gap:12px; flex-wrap:wrap; background:var(--accent-soft); border:1px solid var(--accent); border-radius:8px; padding:12px 16px; margin-bottom:18px;">
-      <span id="reviewInfo" style="flex:1; min-width:180px; font-size:14px; color:var(--accent-dark); font-weight:600;"></span>
-      <button id="exitReviewBtn">✕ Thoát review</button>
+    <div id="reviewBanner" style="display:none; flex-direction:column; gap:12px; background:var(--accent-soft); border:1px solid var(--accent); border-radius:8px; padding:14px 16px; margin-bottom:18px;">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <span id="reviewInfo" style="flex:1; min-width:180px; font-size:14px; color:var(--accent-dark); font-weight:600;"></span>
+        <button id="exitReviewBtn">✕ Thoát review</button>
+      </div>
+      <div id="reviewFilters" class="review-pills"></div>
     </div>
     <div class="qmeta">
       <span id="counter"></span>
@@ -362,7 +373,7 @@
   }
 
   let exam, idx, remaining, running = true, tick = null, state;
-  let reviewMode = false, reviewData = null;
+  let reviewMode = false, reviewData = null, reviewFilter = "all", reviewStatuses = [];
   let historyCache = [];
 
   /* ---------- Persistence ---------- */
@@ -458,8 +469,15 @@
     });
 
     el("answerBox").classList.remove("show");
-    el("prevBtn").disabled = idx === 0;
-    el("nextBtn").disabled = idx === exam.questions.length - 1;
+    if (reviewMode) {
+      const list = reviewIndices();
+      const pos = list.indexOf(idx);
+      el("prevBtn").disabled = pos <= 0;
+      el("nextBtn").disabled = pos < 0 || pos >= list.length - 1;
+    } else {
+      el("prevBtn").disabled = idx === 0;
+      el("nextBtn").disabled = idx === exam.questions.length - 1;
+    }
     el("clearBtn").disabled = reviewMode;
     el("submitBtn").disabled = reviewMode;
     el("options").style.pointerEvents = reviewMode ? "none" : "";
@@ -509,6 +527,15 @@
   }
 
   function go(delta) {
+    if (reviewMode) {
+      const list = reviewIndices();
+      if (!list.length) return;
+      let pos = list.indexOf(idx);
+      if (pos < 0) { idx = list[0]; render(); window.scrollTo(0, 0); return; }
+      const np = pos + delta;
+      if (np >= 0 && np < list.length) { idx = list[np]; render(); window.scrollTo(0, 0); }
+      return;
+    }
     const n = idx + delta;
     if (n >= 0 && n < exam.questions.length) { idx = n; saveState(); render(); window.scrollTo(0, 0); }
   }
@@ -568,13 +595,55 @@
     }
     reviewMode = true;
     reviewData = rec;
+    reviewFilter = "all";
+    reviewStatuses = exam.questions.map((q, i) => {
+      const correct = new Set(q.correct_answers || []);
+      const sel = new Set((rec.answers || {})[i] || []);
+      if (!sel.size) return "skipped";
+      const right = sel.size === correct.size && [...sel].every((l) => correct.has(l));
+      return right ? "correct" : "incorrect";
+    });
     el("reviewBanner").style.display = "flex";
     el("reviewInfo").textContent =
       `Đang xem lại lần làm ngày ${new Date(rec.date).toLocaleString()} — ${rec.percent}% (${rec.correct}/${rec.total} đúng)`;
+    renderReviewFilters();
     el("historyOverlay").classList.remove("show");
-    idx = 0;
+    const list = reviewIndices();
+    idx = list.length ? list[0] : 0;
     render();
     window.scrollTo(0, 0);
+  }
+
+  function reviewIndices() {
+    const all = exam.questions.map((_, i) => i);
+    return reviewFilter === "all" ? all : all.filter((i) => reviewStatuses[i] === reviewFilter);
+  }
+  function renderReviewFilters() {
+    const counts = { all: reviewStatuses.length, correct: 0, incorrect: 0, skipped: 0 };
+    reviewStatuses.forEach((s) => counts[s]++);
+    const defs = [
+      ["all", "Tất cả"], ["correct", "Chính xác"],
+      ["incorrect", "Không chính xác"], ["skipped", "Đã bỏ qua"],
+    ];
+    el("reviewFilters").innerHTML = defs.map(([k, label]) =>
+      `<button class="rpill ${k} ${reviewFilter === k ? "active" : ""}" data-f="${k}">` +
+      `<span class="n">${counts[k]}</span> ${label}</button>`).join("");
+    el("reviewFilters").querySelectorAll(".rpill").forEach((b) => {
+      b.onclick = () => setReviewFilter(b.dataset.f);
+    });
+  }
+  function setReviewFilter(f) {
+    reviewFilter = f;
+    renderReviewFilters();
+    const list = reviewIndices();
+    if (list.length) { idx = list[0]; render(); window.scrollTo(0, 0); }
+    else {
+      el("qtext").textContent = "Không có câu nào trong nhóm này.";
+      el("options").innerHTML = "";
+      el("answerBox").classList.remove("show");
+      el("prevBtn").disabled = true;
+      el("nextBtn").disabled = true;
+    }
   }
 
   function exitReview() {
@@ -616,7 +685,7 @@
       `<table><thead><tr><th>#</th><th>Ngày</th><th>Điểm</th><th>Đúng</th><th>Đã trả lời</th><th>Thời gian</th></tr></thead><tbody>${rows}</tbody></table>`;
     el("historyBody").querySelectorAll(".hrow").forEach((tr) => {
       tr.style.cursor = "pointer";
-      tr.onmouseenter = () => (tr.style.background = "#0b1220");
+      tr.onmouseenter = () => (tr.style.background = "var(--accent-soft)");
       tr.onmouseleave = () => (tr.style.background = "");
       tr.onclick = () => enterReview(historyCache[+tr.dataset.idx]);
     });
