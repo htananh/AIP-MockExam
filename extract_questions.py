@@ -111,9 +111,10 @@ def parse_file(path):
 
 def main():
     # Exclude the app page itself; each remaining .html file is one exam ("đề")
+    skip = {"practice.html", "index.html"}
     html_files = sorted(
         p for p in glob.glob(os.path.join(BASE, "*.html"))
-        if os.path.basename(p).lower() != "practice.html"
+        if os.path.basename(p).lower() not in skip
     )
 
     exams = []
