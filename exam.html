@@ -240,7 +240,6 @@
     <span class="timer" id="timer">03:00:00</span>
   </div>
   <button id="pauseBtn">⏸ Pause</button>
-  <button id="resetTimerBtn">↻ Timer</button>
 </header>
 
 <div class="wrap">
@@ -289,7 +288,6 @@
     <div class="toolbar">
       <button class="success" id="submitBtn">✔ Nộp bài &amp; lưu kết quả</button>
       <button id="historyBtn">📊 Lịch sử</button>
-      <button id="resetProgressBtn">🗑 Xóa bài làm</button>
       <span class="spacer"></span>
       <span class="hint" id="savedHint">Đã tự lưu</span>
     </div>
@@ -628,6 +626,7 @@
     el("reviewBanner").style.display = "flex";
     el("reviewInfo").textContent =
       `Đang xem lại lần làm ngày ${new Date(rec.date).toLocaleString()} — ${rec.percent}% (${rec.correct}/${rec.total} đúng)`;
+    stopTimer(); // xem lại: dừng đồng hồ, không tính giờ
     renderReviewFilters();
     el("historyOverlay").classList.remove("show");
     const list = reviewIndices();
@@ -701,6 +700,7 @@
     reviewData = null;
     el("reviewBanner").style.display = "none";
     idx = Math.min(state.idx || 0, exam.questions.length - 1);
+    if (!practiceMode) start(); // tiếp tục đếm giờ sau khi thoát review
     render();
   }
 
@@ -788,6 +788,11 @@
     el("pauseOverlay").classList.add("show");
     saveState();
   }
+  function stopTimer() {
+    running = false;
+    if (tick) clearInterval(tick);
+    el("pauseBtn").textContent = "▶ Resume";
+  }
 
   /* ---------- Events ---------- */
   el("examSelect").onchange = (e) => {
@@ -813,7 +818,6 @@
 
   el("pauseBtn").onclick = () => (running ? pause() : start());
   el("resumeBtn").onclick = start;
-  el("resetTimerBtn").onclick = () => { remaining = TOTAL; updateTimer(); saveState(); start(); };
 
   el("submitBtn").onclick = submit;
   el("closeResultBtn").onclick = () => el("resultOverlay").classList.remove("show");
@@ -832,13 +836,6 @@
     }
     openHistory();
   };
-  el("resetProgressBtn").onclick = () => {
-    if (confirm("Xóa bài làm hiện tại của " + exam.name + " (đáp án đã chọn + đồng hồ)?")) {
-      localStorage.removeItem(stateKey(exam.id));
-      loadExam(exam.id);
-    }
-  };
-
   window.addEventListener("beforeunload", saveState);
 
   buildExamSelect();
@@ -850,7 +847,6 @@
   if (practiceMode) {
     el("timer").style.display = "none";
     el("pauseBtn").style.display = "none";
-    el("resetTimerBtn").style.display = "none";
     const lbl = document.querySelector(".timer-wrap .lbl");
     if (lbl) lbl.textContent = "🧪 Chế độ thực hành — không tính giờ";
   }
