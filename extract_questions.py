@@ -117,22 +117,41 @@ def main():
         if os.path.basename(p).lower() not in skip
     )
 
-    exams = []
-    for i, path in enumerate(html_files, start=1):
+    # Merge with existing exams.json so previously extracted exams (whose source
+    # HTML may no longer be on disk) are preserved when adding new ones.
+    existing = []
+    ejson = os.path.join(BASE, "exams.json")
+    if os.path.exists(ejson):
+        try:
+            with open(ejson, encoding="utf-8") as f:
+                existing = json.load(f)
+        except Exception:
+            existing = []
+
+    by_id = {e["id"]: e for e in existing}
+    order = [e["id"] for e in existing]
+
+    for path in html_files:
         questions = parse_file(path)
         if not questions:
             continue
         base = os.path.splitext(os.path.basename(path))[0]
         # Stable id from filename so saved progress/history survives adding new exams
         slug = re.sub(r"[^a-z0-9]+", "_", base.lower()).strip("_")[:40]
-        exams.append(
-            {
-                "id": "exam_" + slug,
-                "name": f"Đề {i}",
-                "source": os.path.basename(path),
-                "questions": questions,
-            }
-        )
+        eid = "exam_" + slug
+        rec = by_id.get(eid, {"id": eid})
+        rec["source"] = os.path.basename(path)
+        rec["questions"] = questions
+        by_id[eid] = rec
+        if eid not in order:
+            order.append(eid)
+
+    # Sequential names by position; order (and ids) stay stable for history
+    exams = []
+    for i, eid in enumerate(order, start=1):
+        e = by_id[eid]
+        e["name"] = f"Đề {i}"
+        exams.append(e)
 
     # JSON output (all exams)
     with open(os.path.join(BASE, "exams.json"), "w", encoding="utf-8") as f:

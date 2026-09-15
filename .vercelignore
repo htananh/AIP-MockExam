@@ -1,6 +1,8 @@
 # Chỉ deploy web app; bỏ qua file nguồn & script không cần thiết
 Practice Exam *.html
 Practice Exam *_files/
+De 2 - *.html
+*_files/
 extract_questions.py
 run.py
 start.bat

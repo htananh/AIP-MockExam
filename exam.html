@@ -219,6 +219,15 @@
   .rpill.correct .n { color: var(--green); }
   .rpill.incorrect .n { color: var(--red); }
   .rpill.active .n { color: #fff; }
+  #reviewList .rq { padding: 26px 0; border-bottom: 1px solid var(--border); }
+  #reviewList .rq:last-child { border-bottom: none; }
+  .rq-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .rq-num { font-weight: 800; font-size: 16px; }
+  .rstat { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+  .rstat.correct { background: var(--green-bg); color: var(--green); }
+  .rstat.incorrect { background: var(--red-bg); color: var(--red); }
+  .rstat.skipped { background: #eef0f2; color: var(--muted); }
+  #reviewList .explanation { max-height: none; }
 </style>
 </head>
 <body>
@@ -243,6 +252,7 @@
       </div>
       <div id="reviewFilters" class="review-pills"></div>
     </div>
+    <div id="singleView">
     <div class="qmeta">
       <span id="counter"></span>
       <span>
@@ -273,6 +283,8 @@
       <button id="nextBtn">Next →</button>
     </div>
     <div class="progress" id="progress"></div>
+    </div>
+    <div id="reviewList" style="display:none"></div>
 
     <div class="toolbar">
       <button class="success" id="submitBtn">✔ Nộp bài &amp; lưu kết quả</button>
@@ -446,6 +458,14 @@
   function currentQuestion() { return exam.questions[idx]; }
 
   function render() {
+    if (reviewMode) {
+      el("singleView").style.display = "none";
+      el("reviewList").style.display = "";
+      renderReviewList();
+      return;
+    }
+    el("singleView").style.display = "";
+    el("reviewList").style.display = "none";
     const q = currentQuestion();
     if (!q) return;
     const multi = (q.correct_answers || []).length > 1;
@@ -620,6 +640,41 @@
     const all = exam.questions.map((_, i) => i);
     return reviewFilter === "all" ? all : all.filter((i) => reviewStatuses[i] === reviewFilter);
   }
+  function renderReviewList() {
+    const list = reviewIndices();
+    if (!list.length) {
+      el("reviewList").innerHTML = '<p style="color:var(--muted);padding:20px 0">Không có câu nào trong nhóm này.</p>';
+      return;
+    }
+    const src = reviewData.answers || {};
+    el("reviewList").innerHTML = list.map((i) => {
+      const q = exam.questions[i];
+      const correct = new Set(q.correct_answers || []);
+      const sel = new Set(src[i] || []);
+      const status = reviewStatuses[i];
+      const statusLabel = status === "correct" ? "✅ Chính xác"
+        : status === "incorrect" ? "❌ Không chính xác" : "⏭ Đã bỏ qua";
+      const opts = (q.answers || []).map((a) => {
+        let cls = "option";
+        if (correct.has(a.letter)) cls += " correct";
+        else if (sel.has(a.letter)) cls += " wrong";
+        return `<div class="${cls}"><span class="letter">${escape(a.letter)}</span><span>${escape(a.text)}</span></div>`;
+      }).join("");
+      const chosen = [...sel].sort().join(", ") || "—";
+      const answer = [...correct].sort().join(", ");
+      const mark = sel.size ? (status === "correct" ? "✅" : "❌") : "";
+      return `<div class="rq">` +
+        `<div class="rq-head"><span class="rq-num">Question ${q.number}</span>` +
+        `<span class="rstat ${status}">${statusLabel}</span></div>` +
+        `<div class="qtext">${escape(q.question)}</div>` +
+        `<div class="options">${opts}</div>` +
+        `<div class="answer-box show">` +
+          `<div class="answer-head">Correct answer: <span class="ok">${escape(answer)}</span> &nbsp;|&nbsp; Your answer: ${escape(chosen)} ${mark}</div>` +
+          `<div class="explanation">${escape(q.explanation || "(no explanation)")}</div>` +
+        `</div>` +
+      `</div>`;
+    }).join("");
+  }
   function renderReviewFilters() {
     const counts = { all: reviewStatuses.length, correct: 0, incorrect: 0, skipped: 0 };
     reviewStatuses.forEach((s) => counts[s]++);
@@ -637,15 +692,8 @@
   function setReviewFilter(f) {
     reviewFilter = f;
     renderReviewFilters();
-    const list = reviewIndices();
-    if (list.length) { idx = list[0]; render(); window.scrollTo(0, 0); }
-    else {
-      el("qtext").textContent = "Không có câu nào trong nhóm này.";
-      el("options").innerHTML = "";
-      el("answerBox").classList.remove("show");
-      el("prevBtn").disabled = true;
-      el("nextBtn").disabled = true;
-    }
+    renderReviewList();
+    window.scrollTo(0, 0);
   }
 
   function exitReview() {

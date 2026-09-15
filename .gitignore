@@ -1,0 +1,5 @@
+# Source exam HTML pages and their asset folders (not needed to run the app)
+Practice Exam *.html
+De 2 - *.html
+*_files/
+__pycache__/

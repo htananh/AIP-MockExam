@@ -4998,3 +4998,2286 @@ loại nội dung độc hại
 (hate/sexual/violence/profanity)
 
 ============================================================
+
+########## Đề 2 (De 2 - AIP-C01 Cloud Exam Pro.html) ##########
+
+=== Question 1 ===
+A company uses Amazon Bedrock to build a Retrieval Augmented Generation (RAG) system. The RAG system uses an Amazon Bedrock knowledge base that is based on an Amazon S3 bucket as the data source for emergency news video content. The system retrieves transcripts, archived reports, and related documents from the S3 bucket.
+The RAG system uses state-of-the-art embedding models and a high-performing retrieval setup. However, users report slow responses and irrelevant results, which cause decreased user satisfaction. The company notices that vector searches are evaluating too many documents across too many content types and over long periods of time.
+The company determines that the underlying models will not benefit from additional fine tuning. The company must improve retrieval accuracy by applying smarter constraints. The company wants a solution that requires minimal changes to the existing architecture.
+Which solution will meet these requirements?
+
+A. Enhance embeddings by using a domain-adapted model that is specifically trained on emergency news content for improved vector similarity.
+B. Migrate to Amazon OpenSearch Service. Use vector fields and metadata filters to define the scope of results retrieval.
+C. Enable metadata-aware filtering within the Amazon Bedrock knowledge base by indexing S3 object metadata. (CORRECT)
+D. Migrate to an Amazon Q Business index to perform structured metadata filtering and document categorization during retrieval.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Hệ thống RAG dùng Bedrock KB với S3 làm nguồn dữ liệu (
+emergency news video content
+)
+Vấn đề:
+tìm kiếm vector quét quá nhiều tài liệu
+(vector searches evaluating too many documents) qua nhiều loại nội dung/thời gian
+Fine-tuning
+không hiệu quả
+(will not benefit from fine-tuning)
+Yêu cầu:
+thay đổi tối thiểu kiến trúc hiện tại
+(minimal changes to existing architecture)
+✅
+Đáp án đúng:
+Enable metadata-aware filtering within the Amazon Bedrock knowledge base by indexing S3 object metadata.
+Metadata filtering giới hạn phạm vi tìm kiếm vector theo loại nội dung/thời gian mà
+không cần đổi kiến trúc
+Đây là tính năng built-in của Bedrock KB, khớp với "minimal changes"
+Các đáp án sai:
+❌ Enhance embeddings by using a domain-adapted model that is specifically trained on emergency news content for improved vector similarity.
+→ Sai. Đề bài đã loại trừ rõ ràng fine-tuning không giúp ích
+❌ Migrate to Amazon OpenSearch Service. Use vector fields and metadata filters to define the scope of results retrieval.
+→ Sai. Migrate = thay đổi lớn kiến trúc, vi phạm "minimal changes"
+❌ Migrate to an Amazon Q Business index to perform structured metadata filtering and document categorization during retrieval.
+→ Sai. Cũng là thay đổi kiến trúc lớn, không phù hợp
+🔑
+Tips and tricks:
+"Không fine-tune được" + "thay đổi tối thiểu"
+→ tìm tính năng
+built-in/native
+của service hiện có (metadata filtering, không migrate)
+Metadata filtering trong Bedrock KB
+→ giải pháp cho vấn đề "tìm kiếm quá rộng/không liên quan"
+
+============================================================
+
+=== Question 2 ===
+A financial services company needs to pre-process unstructured data such as customer transcripts, financial reports, and documentation. The company stores the unstructured data in Amazon S3 to support an Amazon Bedrock application.
+The company must validate data quality, create auditable metadata, monitor data metrics, and customize text chunking to optimize foundation model (FM) performance.
+Which solution will meet these requirements with the LEAST development effort?
+
+A. Create an AWS Step Functions workflow to orchestrate data pre-processing tasks. Run custom code on Amazon EC2 instances to process the data. Use Amazon SageMaker Model Monitor to monitor data quality. Load processed data into Amazon Bedrock.
+B. Use Amazon SageMaker Data Wrangler to create a data flow. Configure Amazon CloudWatch metrics and alarms to monitor data quality. Use a custom AWS Lambda function to pre-process the data. Load processed data into Amazon Bedrock.
+C. Set up an AWS Glue crawler to catalog data sources. Create AWS Glue ETL jobs to run custom transformation scripts. Use AWS Glue Data Quality to validate and monitor data quality. Load processed data into Amazon Bedrock. (CORRECT)
+D. Use Amazon Comprehend to extract entities. Create an AWS Lambda function to chunk text. Run Amazon Athena to query and validate data quality. Load processed data into Amazon Bedrock.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần:
+validate chất lượng dữ liệu
+(validate data quality),
+metadata có thể audit
+(auditable metadata),
+giám sát metrics
+(monitor data metrics),
+tùy chỉnh chunking
+(customize text chunking)
+Yêu cầu:
+ít công sức phát triển nhất
+(LEAST development effort)
+✅
+Đáp án đúng:
+Set up an AWS Glue crawler to catalog data sources. Create AWS Glue ETL jobs to run custom transformation scripts. Use AWS Glue Data Quality to validate and monitor data quality. Load processed data into Amazon Bedrock.
+AWS Glue Data Quality
+là dịch vụ managed chuyên biệt cho validate + monitor quality, tạo metadata tự động có thể audit
+Glue crawler tự động catalog → giảm công sức thủ công
+Đây là combo managed service phù hợp nhất, ít code custom
+Các đáp án sai:
+❌ Use Amazon SageMaker Data Wrangler to create a data flow. Configure Amazon CloudWatch metrics and alarms to monitor data quality. Use a custom AWS Lambda function to pre-process the data. Load processed data into Amazon Bedrock.
+→ Sai. Cần viết Lambda custom để xử lý, nhiều thao tác thủ công hơn Glue Data Quality
+❌ Use Amazon Comprehend to extract entities. Create an AWS Lambda function to chunk text. Run Amazon Athena to query and validate data quality. Load processed data into Amazon Bedrock.
+→ Sai. Athena chỉ dùng để
+query
+, không phải công cụ validate quality chuyên dụng
+❌ Create an AWS Step Functions workflow to orchestrate data pre-processing tasks. Run custom code on Amazon EC2 instances to process the data. Use Amazon SageMaker Model Monitor to monitor data quality. Load processed data into Amazon Bedrock.
+→ Sai. Quản lý EC2 + code tự viết =
+overhead cao nhất
+trong các lựa chọn
+🔑
+Tips and tricks:
+"Validate data quality" + "auditable metadata"
+→
+AWS Glue Data Quality
+(không phải Athena, không phải CloudWatch)
+"LEAST development effort"
+→ ưu tiên managed service có tính năng sẵn có, tránh EC2/custom code
+
+============================================================
+
+=== Question 3 ===
+A company is developing a generative AI (GenAI)-powered customer support application that uses Amazon Bedrock foundation models (FMs). The application must maintain conversational context across multiple interactions with the same user. The application must run clarification workflows to handle ambiguous user queries. The company must store encrypted records of each user conversation to use for personalization. The application must be able to handle thousands of concurrent users while responding to each user quickly.
+Which solution will meet these requirements?
+
+A. Use AWS Lambda functions to call Amazon Bedrock inference APIs. Use Amazon SQS queues to orchestrate clarification steps. Store conversation history in an Amazon ElastiCache (Redis OSS) cluster. Configure encryption at rest.
+B. Use an AWS Step Functions Express workflow to orchestrate conversation flow. Invoke AWS Lambda functions to run clarification logic. Store conversation history in Amazon RDS and use session IDs as the primary key.
+C. Use an AWS Step Functions Standard workflow to orchestrate clarification workflows. Include Wait for a Callback patterns to manage the workflows. Store conversation history in Amazon DynamoDPurchase on-demand capacity and configure server-side encryption. (CORRECT)
+D. Deploy the application by using an Amazon API Gateway REST API to route user requests to an AWS Lambda function to update and retrieve conversation context. Store conversation history in Amazon S3 and configure server-side encryption. Save each interaction as a separate JSON file.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần: duy trì
+ngữ cảnh hội thoại
+(conversational context),
+clarification workflow
+cho câu hỏi mơ hồ, lưu
+bản ghi mã hóa
+(encrypted records), phục vụ
+hàng nghìn user đồng thời
+(thousands of concurrent users) với
+phản hồi nhanh
+✅
+Đáp án đúng:
+Use an AWS Step Functions Standard workflow to orchestrate clarification workflows. Include Wait for a Callback patterns to manage the workflows. Store conversation history in Amazon DynamoDPurchase on-demand capacity and configure server-side encryption.
+Standard workflow
+hỗ trợ
+Wait for Callback
+(chờ phản hồi user lâu hơn 5 phút) - Express workflow KHÔNG hỗ trợ pattern này
+DynamoDB on-demand xử lý tốt hàng nghìn user đồng thời với độ trễ thấp
+Server-side encryption đáp ứng yêu cầu mã hóa
+Các đáp án sai:
+❌ Use an AWS Step Functions Express workflow to orchestrate conversation flow. Invoke AWS Lambda functions to run clarification logic. Store conversation history in Amazon RDS and use session IDs as the primary key.
+→ Sai. Express workflow
+không hỗ trợ Wait for Callback
+, chỉ dùng cho tác vụ ngắn (<5 phút); RDS khó scale bằng DynamoDB
+❌ Deploy the application by using an Amazon API Gateway REST API to route user requests to an AWS Lambda function to update and retrieve conversation context. Store conversation history in Amazon S3 and configure server-side encryption. Save each interaction as a separate JSON file.
+→ Sai. S3 không phù hợp truy xuất/update ngữ cảnh nhanh, không có cơ chế clarification
+❌ Use AWS Lambda functions to call Amazon Bedrock inference APIs. Use Amazon SQS queues to orchestrate clarification steps. Store conversation history in an Amazon ElastiCache (Redis OSS) cluster. Configure encryption at rest.
+→ Sai. ElastiCache (Redis) là cache tạm thời, không phù hợp lưu trữ bền vững cho personalization
+🔑
+Tips and tricks:
+"Wait for Callback" / chờ phản hồi lâu
+→ phải dùng
+Step Functions Standard
+(KHÔNG phải Express)
+Lưu trữ hội thoại + scale cao + encryption
+→
+DynamoDB on-demand + server-side encryption
+
+============================================================
+
+=== Question 4 ===
+A legal research company has a Retrieval Augmented Generation (RAG) application that uses Amazon Bedrock and Amazon OpenSearch Service. The application stores 768-dimensional vector embeddings for 15 million legal documents, including statutes, court rulings, and case summaries.
+The company's current chunking strategy segments text into fixed-length blocks of 500 tokens. The current chunking strategy often splits contextually linked information such as legal arguments, court opinions, or statute references across separate chunks. Researchers report that generated outputs frequently omit key context or cite outdated legal information.
+Recent application logs show a 40% increase in response times. The p95 latency metric exceeds 2 seconds. The company expects storage needs for the application to grow from 90 GB to 360 GB within a year.
+The company needs a solution to improve retrieval relevance and system performance at scale.
+Which solution will meet these requirements?
+
+A. Increase the embedding vector dimensionality from 768 to 4,096 without changing the existing chunking or pre-processing strategy.
+B. Migrate from OpenSearch Service to Amazon DynamoDB. Implement keyword-based indexes to enable faster lookups for legal concepts.
+C. Replace dynamic retrieval with static, pre-written summaries that are stored in Amazon S3. Use Amazon CloudFront to serve the summaries to reduce compute demand and improve predictability.
+D. Update the chunking strategy to use semantic boundaries such as complete legal arguments, clauses, or sections rather than fixed token limits. Regenerate vector embeddings to align with the new chunk structure. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Chunking cố định 500 tokens
+cắt đứt ngữ cảnh liên quan
+(splits contextually linked information)
+Kết quả: outputs
+thiếu ngữ cảnh/trích dẫn lỗi thời
+(omit key context, outdated info),
+latency tăng 40%
+Cần cải thiện
+độ liên quan truy xuất
+(retrieval relevance) VÀ
+hiệu năng khi mở rộng quy mô
+(performance at scale)
+✅
+Đáp án đúng:
+Update the chunking strategy to use semantic boundaries such as complete legal arguments, clauses, or sections rather than fixed token limits. Regenerate vector embeddings to align with the new chunk structure.
+Giải quyết đúng
+gốc rễ vấn đề
+: chunking cố định làm mất ngữ cảnh
+Semantic chunking giữ nguyên ngữ cảnh pháp lý liên quan, cải thiện relevance trực tiếp
+Các đáp án sai:
+❌ Increase the embedding vector dimensionality from 768 to 4,096 without changing the existing chunking or pre-processing strategy.
+→ Sai. Không sửa vấn đề chunking gốc, còn làm tăng storage/compute nhiều hơn
+❌ Replace dynamic retrieval with static, pre-written summaries that are stored in Amazon S3. Use Amazon CloudFront to serve the summaries to reduce compute demand and improve predictability.
+→ Sai. Thay đổi kiến trúc gốc RAG, không phù hợp với nhu cầu tra cứu pháp lý linh hoạt
+❌ Migrate from OpenSearch Service to Amazon DynamoDB. Implement keyword-based indexes to enable faster lookups for legal concepts.
+→ Sai. Mất khả năng semantic vector search hoàn toàn, sai hướng
+🔑
+Tips and tricks:
+"Wait for Callback" / chờ phản hồi lâu
+→ phải dùng
+Step Functions Standard
+(KHÔNG phải Express)
+Lưu trữ hội thoại + scale cao + encryption
+→
+DynamoDB on-demand + server-side encryption
+
+============================================================
+
+=== Question 5 ===
+An ecommerce company is using Amazon Bedrock to build a customer service AI assistant. The AI assistant needs to process over 50,000 customer inquiries every day. The AI assistant occasionally experiences traffic spikes of up to 150,000 inquiries every day during promotional events. Analysis shows that 40% of inquiries follow similar patterns that share the same context.
+A GenAI developer must design a solution that will ensure low latency and consistent performance for the AI assistant during traffic spikes.
+Which solution will meet these requirements MOST cost-effectively?
+
+A. Configure latency-optimized inference by setting the latency parameter to optimized in the performance configuration of the request to Amazon Bedrock. Use prompt caching to handle the repetitive inquiries. (CORRECT)
+B. Purchase provisioned throughput and model units (MUs) that are sized to handle peak traffic loads. Use Amazon ElastiCache (Redis OSS) to cache repetitive inquiries.
+C. Use Amazon Bedrock Agents and custom knowledge bases to pre-process customer inquiries. Configure cross-Region inference to distribute traffic.
+D. Use AWS Lambda functions to pre-process requests by using a custom prompt routing mechanism. Use Amazon DynamoDB as a caching layer to handle frequently asked questions.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Traffic spike từ 50k → 150k/ngày,
+40% câu hỏi lặp lại cùng ngữ cảnh
+(share the same context)
+Yêu cầu:
+latency thấp + hiệu năng ổn định
+,
+MOST cost-effective
+✅
+Đáp án đúng:
+Configure latency-optimized inference by setting the latency parameter to optimized in the performance configuration of the request to Amazon Bedrock. Use prompt caching to handle the repetitive inquiries.
+Prompt caching
+xử lý hiệu quả 40% câu hỏi lặp (giảm chi phí + latency)
+Latency-optimized inference là tính năng native, không cần trả phí capacity cố định cho peak
+Các đáp án sai:
+❌ Purchase provisioned throughput and model units (MUs) that are sized to handle peak traffic loads. Use Amazon ElastiCache (Redis OSS) to cache repetitive inquiries.
+→ Sai. Trả phí cho công suất đỉnh
+quanh năm
+dù ít khi đạt đỉnh → tốn kém, không cost-effective
+❌ Use Amazon Bedrock Agents and custom knowledge bases to pre-process customer inquiries. Configure cross-Region inference to distribute traffic.
+→ Sai. Phức tạp hơn, không tận dụng được đặc điểm "40% lặp lại ngữ cảnh"
+❌ Use AWS Lambda functions to pre-process requests by using a custom prompt routing mechanism. Use Amazon DynamoDB as a caching layer to handle frequently asked questions.
+→ Sai. Thêm overhead vận hành, không tối ưu bằng prompt caching native
+🔑
+Tips and tricks:
+"% câu hỏi lặp lại/giống ngữ cảnh"
+→
+Prompt Caching
+(tính năng native của Bedrock)
+"MOST cost-effective" + traffic spike không liên tục
+→ tránh provisioned throughput sized cho peak (lãng phí)
+
+============================================================
+
+=== Question 6 ===
+A company has set up Amazon Q Developer Pro licenses for all developers at the company. The company maintains a list of approved resources that developers must use when developing applications. The approved resources include internal libraries, proprietary algorithmic techniques, and sample code with approved styling.
+A new team of developers is using Amazon Q Developer to develop a new Java-based application. The company must ensure that the new developer team uses the company's approved resources. The company does not want to make project-level modifications.
+Which solution will meet these requirements?
+
+A. Create a folder in the application project named rules. Store the guidelines and code in the folder for Amazon Q Developer to reference product code suggestions.
+B. In the project root folder, create a folder named .amazonq/rules. Add the approved internal libraries, algorithms, and code samples to the folder.
+C. Create an Amazon Q Developer customization that includes the approved data sources. Ensure that the developers use the customization to develop the application. (CORRECT)
+D. Create a Git repository that contains all of the approved internal libraries, algorithms, and code samples. Include this Git repository in the application project locally as part of the workspace. Ensure that the developers use the @workspace context to retrieve suggestions from the Git repository.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Công ty có
+danh sách tài nguyên được duyệt
+(approved resources: libraries, algorithms, code samples)
+Yêu cầu: đảm bảo team mới dùng approved resources,
+KHÔNG sửa đổi ở cấp project
+(does not want project-level modifications)
+✅
+Đáp án đúng:
+Create an Amazon Q Developer customization that includes the approved data sources. Ensure that the developers use the customization to develop the application.
+Customization
+của Amazon Q Developer hoạt động ở
+cấp tổ chức
+(org-level), không cần cấu hình riêng từng project
+Các đáp án sai:
+❌ Create a Git repository that contains all of the approved internal libraries, algorithms, and code samples. Include this Git repository in the application project locally as part of the workspace. Ensure that the developers use the @workspace context to retrieve suggestions from the Git repository.
+→ Sai. Đây là thay đổi
+cấp project
+, vi phạm yêu cầu
+❌ In the project root folder, create a folder named .amazonq/rules. Add the approved internal libraries, algorithms, and code samples to the folder.
+→ Sai. Cũng là cấu hình
+cấp project
+❌ Create a folder in the application project named rules. Store the guidelines and code in the folder for Amazon Q Developer to reference product code suggestions.
+→ Sai. Tương tự, vẫn là
+project-level
+🔑
+Tips and tricks:
+"Không muốn sửa đổi cấp project" + Amazon Q Developer
+→
+Amazon Q Developer Customization
+(cấu hình tổ chức, không phải file/folder trong project)
+
+============================================================
+
+=== Question 7 ===
+A media company is launching a platform that allows thousands of users every hour to upload images and text content. The platform uses Amazon Bedrock to process the uploaded content to generate creative compositions.
+The company needs a solution to ensure that the platform does not process or produce inappropriate content. The platform must not expose personally identifiable information (PII) in the compositions. The solution must integrate with the company's existing Amazon S3 storage workflow.
+Which solution will meet these requirements with the LEAST infrastructure management overhead?
+
+A. Create an AWS Step Functions workflow that uses built-in Amazon Bedrock guardrails to filter content. Use Amazon Comprehend PII detection to pre-process the content. Use Amazon Rekognition image moderation. (CORRECT)
+B. Enable the Enhanced Monitoring tool. Use an Amazon CloudWatch alarm to filter traffic to the platform. Use Amazon Comprehend PII detection to pre-process the data. Create a CloudWatch alarm to monitor for Amazon Comprehend PII detection events. Create an AWS Step Functions workflow that includes an Amazon Rekognition image moderation step.
+C. Use an Amazon API Gateway HTTP API with request validation templates to screen content before storing the uploaded content in Amazon S3. Use Amazon SageMaker AI to build custom content moderation models that process content before sending the processed content to Amazon Bedrock.
+D. Create an Amazon Cognito user pool that uses pre-authentication AWS Lambda functions to run content moderation checks. Use Amazon Textract to filter text content and Amazon Rekognition to filter image content before allowing users to upload content to the platform.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Platform upload ảnh + text, Bedrock tạo composition
+Cần: chặn
+nội dung không phù hợp
+(inappropriate content), chặn
+lộ PII
+, tích hợp với
+S3 workflow hiện có
+Yêu cầu:
+LEAST infrastructure management overhead
+✅
+Đáp án đúng:
+Create an AWS Step Functions workflow that uses built-in Amazon Bedrock guardrails to filter content. Use Amazon Comprehend PII detection to pre-process the content. Use Amazon Rekognition image moderation.
+Dùng
+guardrails built-in
+của Bedrock (không cần xây dựng custom model) → overhead thấp nhất
+Comprehend + Rekognition là managed service, tích hợp tốt qua Step Functions với S3
+Các đáp án sai:
+❌ Enable the Enhanced Monitoring tool. Use an Amazon CloudWatch alarm to filter traffic to the platform. Use Amazon Comprehend PII detection to pre-process the data. Create a CloudWatch alarm to monitor for Amazon Comprehend PII detection events. Create an AWS Step Functions workflow that includes an Amazon Rekognition image moderation step.
+→ Sai. CloudWatch alarm
+không dùng để lọc traffic
+, thiết kế không hợp lý
+❌ Use an Amazon API Gateway HTTP API with request validation templates to screen content before storing the uploaded content in Amazon S3. Use Amazon SageMaker AI to build custom content moderation models that process content before sending the processed content to Amazon Bedrock.
+→ Sai. Xây dựng custom model =
+overhead cao nhất
+❌ Create an Amazon Cognito user pool that uses pre-authentication AWS Lambda functions to run content moderation checks. Use Amazon Textract to filter text content and Amazon Rekognition to filter image content before allowing users to upload content to the platform.
+→ Sai. Textract dùng để
+trích xuất text/OCR
+, không phải công cụ kiểm duyệt nội dung
+🔑
+Tips and tricks:
+"LEAST infrastructure overhead" + kiểm duyệt nội dung Bedrock
+→
+Bedrock Guardrails built-in
+(không tự xây model)
+PII detection
+→ Comprehend;
+Image moderation
+→ Rekognition (ghi nhớ cặp này)
+
+============================================================
+
+=== Question 8 ===
+A financial services company is developing a real-time generative AI (GenAI) assistant to support human call center agents. The GenAI assistant must transcribe live customer speech, analyze context, and provide incremental suggestions to call center agents while a customer is still speaking. To preserve responsiveness, the GenAI assistant must maintain end-to-end latency under 1 second from speech to initial response display. The architecture must use only managed AWS services and must support bidirectional streaming to ensure that call center agents receive updates in real time.
+Which solution will meet these requirements?
+
+A. Use the Amazon Transcribe streaming API to transcribe calls. Pass the text to Amazon Comprehend to perform sentiment analysis. Feed the results to Anthropic Claude on Amazon Bedrock by using the InvokeModel API. Store results in Amazon DynamoDB. Use a WebSocket API to display the results.
+B. Use Amazon Transcribe streaming with partial results enabled to deliver fragments of transcribed text before customers finish speaking. Forward text fragments to Amazon Bedrock by using the InvokeModelWithResponseStream API. Stream responses to call center agents through an Amazon API Gateway WebSocket API. (CORRECT)
+C. Use Amazon Transcribe batch processing to convert calls to text. Pass complete transcripts to Anthropic Claude on Amazon Bedrock by using the ConverseStream API. Return responses through an Amazon Lex chatbot interface that call center agents can access from their work computers.
+D. Use the Amazon Transcribe streaming API with an AWS Lambda function to transcribe each audio segment. Configure the Lambda function to call the Amazon Titan Embeddings model on Amazon Bedrock by using the InvokeModel API. Configure the Lambda function to publish results to an Amazon SNS topic. Subscribe the call center agents to the SNS topic.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+GenAI hỗ trợ agent call center: transcribe
+live speech
+, gợi ý
+incremental
+khi khách đang nói
+Yêu cầu:
+latency <1 giây
+, chỉ dùng
+managed service
+,
+bidirectional streaming
+✅
+Đáp án đúng:
+Use Amazon Transcribe streaming with partial results enabled to deliver fragments of transcribed text before customers finish speaking. Forward text fragments to Amazon Bedrock by using the InvokeModelWithResponseStream API. Stream responses to call center agents through an Amazon API Gateway WebSocket API.
+Partial results
+= incremental transcription khi khách đang nói (đúng yêu cầu)
+InvokeModelWithResponseStream
+= streaming inference, giảm latency
+WebSocket API
+= bidirectional real-time, đúng yêu cầu
+Các đáp án sai:
+❌ Use the Amazon Transcribe streaming API to transcribe calls. Pass the text to Amazon Comprehend to perform sentiment analysis. Feed the results to Anthropic Claude on Amazon Bedrock by using the InvokeModel API. Store results in Amazon DynamoDB. Use a WebSocket API to display the results.
+→ Sai. InvokeModel (không phải streaming) → latency cao hơn, không đạt <1s
+❌ Use Amazon Transcribe batch processing to convert calls to text. Pass complete transcripts to Anthropic Claude on Amazon Bedrock by using the ConverseStream API. Return responses through an Amazon Lex chatbot interface that call center agents can access from their work computers.
+→ Sai. Batch =
+không real-time
+, vi phạm hoàn toàn yêu cầu
+❌ Use the Amazon Transcribe streaming API with an AWS Lambda function to transcribe each audio segment. Configure the Lambda function to call the Amazon Titan Embeddings model on Amazon Bedrock by using the InvokeModel API. Configure the Lambda function to publish results to an Amazon SNS topic. Subscribe the call center agents to the SNS topic.
+→ Sai. Titan Embeddings
+không phải model sinh văn bản gợi ý
+; SNS không phải bidirectional streaming
+🔑
+Tips and tricks:
+"Bidirectional streaming" real-time
+→
+WebSocket API
+(không phải SNS/SQS)
+Streaming inference với Bedrock
+→
+InvokeModelWithResponseStream
+Transcribe cần kết quả ngay khi đang nói
+→
+partial results enabled
+
+============================================================
+
+=== Question 9 ===
+A healthcare company is using Amazon Bedrock to build a system to help practitioners make clinical decisions. The system must provide treatment recommendations to physicians based only on approved medical documentation and must cite specific sources. The system must not hallucinate or produce factually incorrect information.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Integrate Amazon Bedrock with Amazon Kendra to retrieve approved documents. Implement custom post-processing to compare generated responses against source documents and to include citations.
+B. Deploy an Amazon Bedrock knowledge base and connect it to approved clinical source documents. Use the Amazon Bedrock RetrieveAndGenerate API to return citations from the knowledge base. (CORRECT)
+C. Use Amazon Bedrock and Amazon Comprehend Medical to extract medical entities. Implement verification logic against a medical terminology database.
+D. Use an Amazon Bedrock knowledge base with Retrieve API calls and InvokeModel API calls to retrieve approved clinical source documents. Implement verification logic to compare against retrieved sources and to cite sources.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+Bedrock đưa ra khuyến nghị y tế, phải
+trích dẫn nguồn cụ thể
+(cite specific sources),
+không được hallucinate
+Yêu cầu:
+LEAST operational overhead
+✅
+Đáp án đúng:
+Deploy an Amazon Bedrock knowledge base and connect it to approved clinical source documents. Use the Amazon Bedrock RetrieveAndGenerate API to return citations from the knowledge base.
+RetrieveAndGenerate API
+tự động trả về citation
+built-in
+, không cần logic verify thủ công → overhead thấp nhất
+Các đáp án sai:
+❌ Integrate Amazon Bedrock with Amazon Kendra to retrieve approved documents. Implement custom post-processing to compare generated responses against source documents and to include citations.
+→ Sai. Phải tự viết logic so sánh + tạo citation → overhead cao hơn
+❌ Use Amazon Bedrock and Amazon Comprehend Medical to extract medical entities. Implement verification logic against a medical terminology database.
+→ Sai. Không cung cấp citation trực tiếp, cần xây thêm logic
+❌ Use an Amazon Bedrock knowledge base with Retrieve API calls and InvokeModel API calls to retrieve approved clinical source documents. Implement verification logic to compare against retrieved sources and to cite sources.
+→ Sai. Tách rời 2 API + tự viết logic verify/cite → nhiều công sức hơn RetrieveAndGenerate
+🔑
+Tips and tricks:
+"Cần trích dẫn nguồn" + "LEAST overhead"
+→
+RetrieveAndGenerate API
+(tự động citation, không phải Retrieve + InvokeModel riêng lẻ)
+
+============================================================
+
+=== Question 10 ===
+A software company is using Amazon Q Business to build an AI assistant that allows employees to access company information and personal information by using natural language prompts. The company stores this information in an Amazon S3 bucket.
+Each department in the company has a dedicated prefix in the S3 bucket. Each object name includes the S3 prefix of the department that it belongs to. Each department can belong to only a single group in AWS IAM Identity Center. Each employee belongs to a single department.
+The company configures Amazon Q Business to access data stored in an S3 bucket as a data source. The company needs to ensure that the AI assistant respects access controls based on the user's IAM Identity Center group membership.
+Which solution will meet this requirement with the LEAST operational overhead?
+
+A. Create a metadata file named metadata.json at the top level of the S3 bucket. Add an AccessControlList object to the file that specifies the S3 path of each department's prefix. Specify the IAM Identity Center group that should have access to each department's prefix. Reference the file location in the data source metadata settings.
+B. Create a JSON file named acl.json in each department folder. In each file, create access control entries that specify the IAM Identity Center group that should have access to that department's data. Indicate the location of the JSON file in the Access Control section of the data source settings.
+C. Create a single JSON file named acl.json at the top level of the S3 bucket. Add access control entries that map each department's S3 prefix to its corresponding IAM Identity Center group. Indicate the location of the JSON file in the Access Control section of the data source settings. (CORRECT)
+D. For each IAM Identity Center group, create a separate permissions set that denies access to all prefixes in the S3 bucket. Add a StringNotEquals condition key to the permissions set for each group that specifies the department each group is associated with. Attach the permissions sets to the Identity Center groups.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Mỗi department có S3 prefix riêng, mỗi department thuộc
+1 group IAM Identity Center
+Yêu cầu: Q Business tôn trọng access control theo
+group membership
+,
+LEAST operational overhead
+✅
+Đáp án đúng:
+Create a single JSON file named acl.json at the top level of the S3 bucket. Add access control entries that map each department's S3 prefix to its corresponding IAM Identity Center group. Indicate the location of the JSON file in the Access Control section of the data source settings.
+Một file ACL duy nhất
+ở top-level dễ quản lý hơn nhiều file rải rác → ít overhead nhất
+Đây là pattern chuẩn của Amazon Q Business S3 connector ACL
+Các đáp án sai:
+❌ Create a JSON file named acl.json in each department folder. In each file, create access control entries that specify the IAM Identity Center group that should have access to that department's data. Indicate the location of the JSON file in the Access Control section of the data source settings.
+→ Sai. Nhiều file phải quản lý/đồng bộ → overhead cao
+❌ For each IAM Identity Center group, create a separate permissions set that denies access to all prefixes in the S3 bucket. Add a StringNotEquals condition key to the permissions set for each group that specifies the department each group is associated with. Attach the permissions sets to the Identity Center groups.
+→ Sai. Đây là cơ chế AWS IAM access control,
+không áp dụng cho nội dung Amazon Q Business
+(Q Business dùng ACL riêng)
+❌ Create a metadata file named metadata.json at the top level of the S3 bucket. Add an AccessControlList object to the file that specifies the S3 path of each department's prefix. Specify the IAM Identity Center group that should have access to each department's prefix. Reference the file location in the data source metadata settings.
+→ Sai. Không đúng schema chuẩn của Q Business data source ACL
+🔑
+Tips and tricks:
+Amazon Q Business + S3 + access control theo group
+→
+acl.json
+(single file, top-level, ít overhead nhất)
+Đừng nhầm với IAM permission sets (dùng cho AWS console/API access, không phải nội dung app)
+
+============================================================
+
+=== Question 11 ===
+A bank is building a generative AI (GenAI) application that uses Amazon Bedrock to assess loan applications by using scanned financial documents. The application must extract structured data from the documents. The application must redact personally identifiable information (PII) before inference. The application must use foundation models (FMs) to generate approvals. The application must route low-confidence document extraction results to human reviewers who are within the same AWS Region as the loan applicant.
+The company must ensure that the application complies with strict Regional data residency and auditability requirements. The application must be able to scale to handle 25,000 applications each day and provide 99.9% availability.
+Which combination of solutions will meet these requirements? (Choose three.)
+
+A. Use AWS Lambda functions to detect and redact PII from submitted documents before inference. Apply Amazon Bedrock guardrails to prevent inappropriate or unauthorized content in model outputs. Configure Region-specific IAM roles to enforce data residency requirements and to control access to the extracted data. (CORRECT)
+B. Deploy Amazon Textract and Amazon Augmented AI (Amazon A2I) within the same Region to extract relevant data from the scanned documents. Route low-confidence pages to human reviewers. (CORRECT)
+C. Store uploaded documents in Amazon S3 and apply object metadata. Configure IAM policies to store original documents within the same Region as each applicant. Enable object tagging for future audits. (CORRECT)
+D. Use Amazon SageMaker Clarify to generate fairness and bias reports based on model scoring decisions that Amazon Bedrock makes.
+E. Use Amazon Kendra and Amazon OpenSearch Service to extract field level values semantically from the uploaded documents before inference.
+F. F. Use AWS Glue Data Quality to validate the structured document data. Use AWS Step Functions to orchestrate a review workflow that includes a prompt engineering step that transforms validated data into optimized prompts before invoking Amazon Bedrock to assess loan applications.
+
+Correct answer(s): A, B, C
+
+Explanation:
+A.
+Use AWS Lambda functions to detect and redact PII from submitted documents before inference. Apply Amazon Bedrock guardrails to prevent inappropriate or unauthorized content in model outputs. Configure Region-specific IAM roles to enforce data residency requirements and to control access to the extracted data.
+
+============================================================
+
+=== Question 12 ===
+An elevator service company has developed an AI assistant application by using Amazon Bedrock. The application generates elevator maintenance recommendations to support the company's elevator technicians. The company uses Amazon Kinesis Data Streams to collect the elevator sensor data.
+New regulatory rules require that a human technician must review all AI-generated recommendations. The company needs to establish human oversight workflows to review and approve AI recommendations. The company must store all human technician review decisions for audit purposes.
+Which solution will meet these requirements?
+
+A. Create a custom approval workflow by using AWS Lambda functions and Amazon SQS queues for human review of AI recommendations. Store all review decisions in Amazon DynamoDB for audit purposes.
+B. Create an AWS Step Functions workflow that has a human approval step that uses the waitForTaskToken API to pause execution. After a human technician completes a review, use an AWS Lambda function to call the SendTaskSuccess API that has the approval decision. Store all review decisions in Amazon DynamoDB. (CORRECT)
+C. Create an AWS Glue workflow that has a human approval step. After the human technician review, integrate the application with an AWS Lambda function that calls the SendTaskSuccess API. Store all human technician review decisions in Amazon DynamoDB.
+D. Configure Amazon EventBridge rules with custom event patterns to route AI recommendations to human technicians for review. Create AWS Glue jobs to process human technician approval queues. Use Amazon ElastiCache to cache all human technician review decisions.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+Quy định mới:
+human technician phải review & approve
+mọi AI recommendation
+Cần
+lưu quyết định review để audit
+(store review decisions for audit)
+✅
+Đáp án đúng:
+Create an AWS Step Functions workflow that has a human approval step that uses the waitForTaskToken API to pause execution. After a human technician completes a review, use an AWS Lambda function to call the SendTaskSuccess API that has the approval decision. Store all review decisions in Amazon DynamoDB.
+waitForTaskToken + SendTaskSuccess
+là pattern chuẩn AWS cho human-in-the-loop trong Step Functions
+DynamoDB lưu quyết định phục vụ audit
+Các đáp án sai:
+❌ Create a custom approval workflow by using AWS Lambda functions and Amazon SQS queues for human review of AI recommendations. Store all review decisions in Amazon DynamoDB for audit purposes.
+→ Sai. Không tận dụng pattern native của Step Functions, phải tự xây logic pause/resume
+❌ Create an AWS Glue workflow that has a human approval step. After the human technician review, integrate the application with an AWS Lambda function that calls the SendTaskSuccess API. Store all human technician review decisions in Amazon DynamoDB.
+→ Sai. Glue dùng cho ETL,
+không thiết kế cho human approval workflow
+❌ Configure Amazon EventBridge rules with custom event patterns to route AI recommendations to human technicians for review. Create AWS Glue jobs to process human technician approval queues. Use Amazon ElastiCache to cache all human technician review decisions.
+→ Sai. ElastiCache là cache tạm thời (in-memory),
+không phù hợp lưu trữ audit bền vững
+🔑
+Tips and tricks:
+"Human approval/review pause workflow"
+→
+Step Functions + waitForTaskToken + SendTaskSuccess
+Lưu trữ cho mục đích audit
+→ cần
+durable storage
+(DynamoDB), không phải cache (ElastiCache)
+
+============================================================
+
+=== Question 13 ===
+An ecommerce company is building an internal platform to develop generative AI applications by using Amazon Bedrock foundation models (FMs). Developers need to select models based on evaluations that are aligned to ecommerce use cases. The platform must display accuracy metrics for text generation and summarization in dashboards. The company has custom ecommerce datasets to use as standardized evaluation inputs.
+Which combination of steps will meet these requirements with the LEAST operational overhead? (Choose two.)
+
+A. Configure an AWS Lambda function to create model evaluation jobs on a schedule in the Amazon Bedrock console. Provide the URI of the S3 bucket that contains the datasets as an input. Configure the evaluation jobs to measure the real world knowledge (RWK) score for text generation and BERT Score for summarization. Configure a second Lambda function to check the status of the jobs and publish custom logs to Amazon CloudWatch. Create a custom Amazon CloudWatch Logs Insights dashboard. (CORRECT)
+B. Import the datasets to an Amazon S3 bucket. Provide appropriate IAM permissions and a VPC endpoint configuration to give the evaluation jobs access to the datasets.
+C. Import the datasets to an Amazon S3 bucket. Provide appropriate IAM permissions and cross-origin resource sharing (CORS) permissions to give the evaluation jobs access to the datasets. (CORRECT)
+D. Run an Amazon SageMaker AI notebook job on a schedule by using the fmevals or ragas framework to run evaluations that use the datasets in the S3 bucket. Write Python code in the notebook that makes direct InvokeModel API calls to the FMs and processes their responses for evaluation. Publish job status and results to Amazon CloudWatch Logs to measure the real world knowledge (RWK) score for text generation and toxicity for summarization as metrics for accuracy. Create a custom CloudWatch Logs Insights dashboard.
+E. Use Amazon SageMaker Clarify on a schedule to create model evaluation jobs. Use open source frameworks to create and run standardized evaluations. Publish results to Amazon CloudWatch namespaces. Use the word error rate score for text generation and toxicity for summarization as metrics for accuracy. Configure an AWS Lambda function to check the status of the jobs and publish custom logs to CloudWatch. Create a custom Amazon CloudWatch Logs Insights dashboard.
+
+Correct answer(s): A, C
+
+Explanation:
+A.
+Configure an AWS Lambda function to create model evaluation jobs on a schedule in the Amazon Bedrock console. Provide the URI of the S3 bucket that contains the datasets as an input. Configure the evaluation jobs to measure the real world knowledge (RWK) score for text generation and BERT Score for summarization. Configure a second Lambda function to check the status of the jobs and publish custom logs to Amazon CloudWatch. Create a custom Amazon CloudWatch Logs Insights dashboard.
+
+============================================================
+
+=== Question 14 ===
+A company is developing a generative AI (GenAI) application that analyzes customer service calls in real-time and generates suggested responses for human customer service agents. The application must process 500,000 concurrent calls during peak hours with less than 200 ms end-to-end latency for each suggestion. The company uses existing architecture to transcribe customer call audio streams. The application must not exceed a pre-defined monthly compute budget and must maintain auto scaling capabilities.
+Which solution will meet these requirements?
+
+A. Deploy a mid-sized language model on an Amazon SageMaker AI serverless endpoint that is optimized for batch processing.
+B. Deploy a low-latency, real-time optimized model on Amazon Bedrock. Purchase provisioned throughput and set up automatic scaling policies. (CORRECT)
+C. Deploy a large language model (LLM) on an Amazon SageMaker AI real-time endpoint that uses dedicated GPU instances.
+D. Deploy a large, complex reasoning model on Amazon Bedrock. Purchase provisioned throughput and optimize for batch processing.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+500,000 cuộc gọi đồng thời giờ cao điểm,
+<200ms end-to-end latency
+Không vượt
+ngân sách compute hàng tháng
+, cần
+auto scaling
+✅
+Đáp án đúng:
+Deploy a low-latency, real-time optimized model on Amazon Bedrock. Purchase provisioned throughput and set up automatic scaling policies.
+Model
+tối ưu độ trễ thấp
+đáp ứng <200ms
+Provisioned throughput + auto scaling
+cân bằng giữa hiệu năng và kiểm soát ngân sách
+Các đáp án sai:
+❌ Deploy a large, complex reasoning model on Amazon Bedrock. Purchase provisioned throughput and optimize for batch processing.
+→ Sai. Model reasoning phức tạp
+chậm hơn
+, tối ưu batch
+không phù hợp real-time
+❌ Deploy a large language model (LLM) on an Amazon SageMaker AI real-time endpoint that uses dedicated GPU instances.
+→ Sai. Không có auto scaling rõ ràng, dedicated instance chi phí cố định không linh hoạt với budget
+❌ Deploy a mid-sized language model on an Amazon SageMaker AI serverless endpoint that is optimized for batch processing.
+→ Sai. Batch processing
+không đáp ứng real-time <200ms
+🔑
+Tips and tricks:
+"<200ms + real-time"
+→ loại ngay các đáp án có từ khóa
+"batch processing"
+"Auto scaling + kiểm soát budget"
+→
+Provisioned throughput + automatic scaling policies
+
+============================================================
+
+=== Question 15 ===
+An enterprise application uses an Amazon Bedrock foundation model (FM) to process and analyze 50 to 200 pages of technical documents. Users are experiencing inconsistent responses and receiving truncated outputs when processing documents that exceed the FM's context window limits.
+Which solution will resolve this problem?
+
+A. Use semantic chunking with a breakpoint percentile threshold of 95% and a buffer size of 3 sentences. Use the Amazon Bedrock RetrieveAndGenerate API call to dynamically select the most relevant chunks based on embedding similarity scores.
+B. Configure fixed-size chunking at 4,000 tokens for each chunk with 20% overlap. Use application-level logic to link multiple chunks sequentially until the FM's maximum context window of 200,000 tokens is reached before making inference calls. (CORRECT)
+C. Create a pre-processing AWS Lambda function that analyzes document token count by using the FM's tokenizer. Configure the lambda function to split documents into equal segments that fit within 80% of the context window. Configure the Lambda function to process each segment independently before aggregating the results.
+D. Use hierarchical chunking with parent chunks of 8,000 tokens and child chunks of 2,000 tokens. Use Amazon Bedrock Knowledge Bases built-in retrieval to automatically select relevant parent chunks based on query context. Configure overlap tokens to maintain semantic continuity.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+Xử lý tài liệu 50-200 trang,
+outputs bị cắt cụt
+(truncated) khi vượt
+context window limit
+Cần
+xử lý và phân tích
+toàn bộ tài liệu (process and analyze), không chỉ tìm kiếm/truy vấn
+✅
+Đáp án đúng:
+Configure fixed-size chunking at 4,000 tokens for each chunk with 20% overlap. Use application-level logic to link multiple chunks sequentially until the FM's maximum context window of 200,000 tokens is reached before making inference calls.
+Nối các chunk
+tuần tự đến khi đầy context window (200k tokens)
+, đảm bảo phân tích được tối đa nội dung tài liệu mà không bị cắt cụt
+Phù hợp với yêu cầu "process and analyze" toàn bộ document (không phải chỉ retrieval/query)
+Các đáp án sai:
+❌ Use hierarchical chunking with parent chunks of 8,000 tokens and child chunks of 2,000 tokens. Use Amazon Bedrock Knowledge Bases built-in retrieval to automatically select relevant parent chunks based on query context. Configure overlap tokens to maintain semantic continuity.
+→ Sai. Đây là kỹ thuật
+retrieval
+(chọn chunk liên quan), không phù hợp khi cần
+phân tích toàn bộ tài liệu
+❌ Use semantic chunking with a breakpoint percentile threshold of 95% and a buffer size of 3 sentences. Use the Amazon Bedrock RetrieveAndGenerate API call to dynamically select the most relevant chunks based on embedding similarity scores.
+→ Sai. Cũng là retrieval-based, chỉ chọn phần "liên quan nhất" chứ không xử lý toàn bộ tài liệu
+❌ Create a pre-processing AWS Lambda function that analyzes document token count by using the FM's tokenizer. Configure the lambda function to split documents into equal segments that fit within 80% of the context window. Configure the Lambda function to process each segment independently before aggregating the results.
+→ Sai. Xử lý
+độc lập từng segment
+làm mất ngữ cảnh xuyên suốt giữa các phần → kết quả không nhất quán
+🔑
+Tips and tricks:
+"Process/analyze toàn bộ document" (không phải query/search)
+→ cần
+tối đa hóa context window
+bằng cách nối chunk tuần tự, KHÔNG dùng retrieval-based (KB, RetrieveAndGenerate)
+"Truncated output do vượt context window"
+→ giải pháp là
+quản lý token budget đến max context window
+, không phải retrieval thông minh
+
+============================================================
+
+=== Question 16 ===
+A company has a recommendation system. The system's applications run on Amazon EC2 instances. The applications make API calls to Amazon Bedrock foundation models (FMs) to analyze customer behavior and generate personalized product recommendations.
+The system is experiencing intermittent issues. Some recommendations do not match customer preferences. The company needs an observability solution to monitor operational metrics and detect patterns of operational performance degradation compared to established baselines. The solution must also generate alerts with correlation data within 10 minutes when FM behavior deviates from expected patterns.
+Which solution will meet these requirements?
+
+A. Use Amazon OpenSearch Service with the Observability plugin. Ingest model metrics and logs by using Amazon Kinesis. Create custom Piped Processing Language (PPL) queries to analyze model behavior patterns. Establish operational dashboards to visualize anomalies in real time.
+B. Enable Amazon CloudWatch Application Insights for the application resources. Create custom metrics for recommendation quality, token usage, and response latency by using the CloudWatch embedded metric format with dimensions for request types and user segments. Configure CloudWatch anomaly detection on the model metrics. Establish log pattern analysis by using CloudWatch Logs Insights. (CORRECT)
+C. Implement AWS X-Ray to trace requests through the application components. Enable CloudWatch Logs Insights for error pattern detection. Set up AWS CloudTrail to monitor all API calls to Amazon Bedrock. Create custom dashboards in Amazon QuickSight.
+D. Configure Amazon CloudWatch Container Insights for the application infrastructure. Set up CloudWatch alarms for latency thresholds. Add custom metrics for token counts by using the CloudWatch embedded metric format. Create CloudWatch dashboards to visualize the data.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+Recommendation system chạy trên EC2, gọi Bedrock FM, một số
+recommendations không khớp customer preferences
+Cần: giám sát
+operational metrics
+, phát hiện
+pattern suy giảm hiệu năng
+(patterns of performance degradation) so với
+baseline đã thiết lập
+Yêu cầu:
+alert với correlation data trong 10 phút
+khi FM lệch khỏi pattern mong đợi
+✅
+Đáp án đúng:
+Enable Amazon CloudWatch Application Insights for the application resources. Create custom metrics for recommendation quality, token usage, and response latency by using the CloudWatch embedded metric format with dimensions for request types and user segments. Configure CloudWatch anomaly detection on the model metrics. Establish log pattern analysis by using CloudWatch Logs Insights.
+CloudWatch Anomaly Detection
+= tính năng chuyên biệt so sánh với baseline tự động, đúng yêu cầu "compared to established baselines"
+Custom metrics đo đúng khía cạnh recommendation quality — thứ EC2 metrics mặc định không đo được
+Các đáp án sai:
+❌ Configure Amazon CloudWatch Container Insights for the application infrastructure. Set up CloudWatch alarms for latency thresholds. Add custom metrics for token counts by using the CloudWatch embedded metric format. Create CloudWatch dashboards to visualize the data.
+→ Sai. Container Insights giám sát
+hạ tầng container
+, không đo "recommendation quality" hay so sánh baseline
+❌ Implement AWS X-Ray to trace requests through the application components. Enable CloudWatch Logs Insights for error pattern detection. Set up AWS CloudTrail to monitor all API calls to Amazon Bedrock. Create custom dashboards in Amazon QuickSight.
+→ Sai. X-Ray trace request path (không phải anomaly detection); CloudTrail chỉ log
+API calls
+, không phải performance metrics
+❌ Use Amazon OpenSearch Service with the Observability plugin. Ingest model metrics and logs by using Amazon Kinesis. Create custom Piped Processing Language (PPL) queries to analyze model behavior patterns. Establish operational dashboards to visualize anomalies in real time.
+→ Sai. Overhead vận hành cao hơn nhiều so với dùng CloudWatch native (phải quản lý cluster OpenSearch riêng)
+🔑
+Tips and tricks:
+"So sánh với baseline đã thiết lập" (established baselines)
+→
+CloudWatch Anomaly Detection
+(không phải static threshold alarm)
+Đo "chất lượng" một AI system (quality, không chỉ latency)
+→ custom metrics qua
+embedded metric format
+
+============================================================
+
+=== Question 17 ===
+A company uses Amazon Bedrock to generate technical content for customers. The company has recently experienced a surge in hallucination outputs when the company's model generates summaries of long technical documents. The model outputs include inaccurate or fabricated details. The company's current solution uses a large foundation model (FM) with a basic one-shot prompt that includes the full document in a single input.
+The company needs a solution that will reduce hallucinations and meet factual accuracy goals. The solution must process more than 1,000 documents each hour and deliver summaries within 3 seconds for each document.
+Which combination of solutions will meet these requirements? (Choose two.)
+
+A. Increase the temperature parameter in Amazon Bedrock.
+B. Configure Amazon Bedrock guardrails to block any generated output that matches patterns that are associated with hallucinated content.
+C. Use Retrieval Augmented Generation (RAG) with an Amazon Bedrock knowledge base. Apply semantic chunking and tuned embeddings to ground summaries in source content. (CORRECT)
+D. Prompt the Amazon Bedrock model to summarize each full document in one pass.
+E. Implement zero-shot chain-of-thought (CoT) instructions that require step-by-step reasoning with explicit fact verification before the model generates each summary. (CORRECT)
+
+Correct answer(s): C, E
+
+Explanation:
+A.
+Increase the temperature parameter in Amazon Bedrock.
+
+============================================================
+
+=== Question 18 ===
+A medical company uses Amazon Bedrock to power a clinical documentation summarization system. The system produces inconsistent summaries when handling complex clinical documents. The system performed well on simple clinical documents.
+The company needs a solution that diagnoses inconsistencies, compares prompt performance against established metrics, and maintains historical records of prompt versions.
+Which solution will meet these requirements?
+
+A. Implement version control for prompts in a code repository with a test suite that contains complex clinical documents and quantifiable evaluation metrics. Use an automated testing framework to compare prompt versions and document performance patterns.
+B. Deploy each new prompt version to separate Amazon Bedrock API endpoints. Split production traffic between the endpoints. Configure Amazon CloudWatch to capture response metrics and user feedback for automatic version selection.
+C. Create a custom prompt evaluation flow in Amazon Bedrock Flows that applies the same clinical document inputs to different prompt variants. Use Amazon Comprehend Medical to analyze and score the factual accuracy of each version. (CORRECT)
+D. Create multiple prompt variants by using Prompt management in Amazon Bedrock. Manually test the prompts with simple clinical documents. Deploy the highest performing version by using the Amazon Bedrock console.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Summary
+không nhất quán với clinical documents phức tạp
+, tốt với docs đơn giản
+Cần:
+chẩn đoán inconsistencies
+,
+so sánh hiệu năng prompt với metrics đã thiết lập
+,
+lưu lịch sử phiên bản prompt
+(historical records of prompt versions)
+✅
+Đáp án đúng:
+Create a custom prompt evaluation flow in Amazon Bedrock Flows that applies the same clinical document inputs to different prompt variants. Use Amazon Comprehend Medical to analyze and score the factual accuracy of each version.
+Bedrock Flows
+cho phép test nhiều prompt variant với
+cùng input
+một cách có hệ thống
+Comprehend Medical
+chuyên biệt để score
+factual accuracy trong lĩnh vực y tế
+— đúng domain
+Các đáp án sai:
+❌ Create multiple prompt variants by using Prompt management in Amazon Bedrock. Manually test the prompts with simple clinical documents. Deploy the highest performing version by using the Amazon Bedrock console.
+→ Sai. Test bằng
+simple documents
+không phát hiện được vấn đề xảy ra với
+complex documents
+(sai đối tượng test)
+❌ Implement version control for prompts in a code repository with a test suite that contains complex clinical documents and quantifiable evaluation metrics. Use an automated testing framework to compare prompt versions and document performance patterns.
+→ Sai. Đòi hỏi xây dựng
+framework testing tự viết
+, overhead cao hơn dùng Bedrock Flows native
+❌ Deploy each new prompt version to separate Amazon Bedrock API endpoints. Split production traffic between the endpoints. Configure Amazon CloudWatch to capture response metrics and user feedback for automatic version selection.
+→ Sai. Test
+trực tiếp trên production traffic
+rủi ro cao, không phải cách "diagnose" có kiểm soát
+🔑
+Tips and tricks:
+"So sánh nhiều prompt variant với cùng input"
+→
+Amazon Bedrock Flows
+(không phải tự xây test suite)
+Domain y tế + đo factual accuracy
+→
+Comprehend Medical
+
+============================================================
+
+=== Question 19 ===
+A company provides a service that helps users from around the world discover new restaurants. The service has 50 million monthly active users. The company wants to implement a semantic search solution across a database that contains 20 million restaurants and 200 million reviews. The company currently stores the data in a PostgresQL database.
+The solution must support complex natural language queries and return results for at least 95% of queries within 500 ms. The solution must maintain data freshness for restaurant details that update hourly. The solution must also scale cost-effectively during peak usage periods.
+Which solution will meet these requirements with the LEAST development effort?
+
+A. Migrate the restaurant data to Amazon OpenSearch Service. Implement keyword-based search rules that use custom analyzers and relevance tuning to find restaurants based on attributes such as cuisine type, feature, and location. Create Amazon API Gateway HTTP API endpoints to transform user queries into structured search parameters.
+B. Migrate the restaurant data to Amazon OpenSearch Service. Use a foundation model (FM) in Amazon Bedrock to generate vector embeddings from restaurant descriptions, reviews, and menu items. When users submit natural language queries, convert the queries to embeddings by using the same FM. Perform k-nearest neighbors (k-NN) searches to find semantically similar results. (CORRECT)
+C. Keep the restaurant data in PostgresQL and implement a pgvector extension. Use a foundation model (FM) in Amazon Bedrock to generate vector embeddings from restaurant data. Store the vector embeddings directly in PostgreSQL. Create an AWS Lambda function to convert natural language queries to vector representations by using the same FM. Configure the Lambda function to perform similarity searches within the database.
+D. Migrate restaurant data to an Amazon Bedrock knowledge base by using a custom ingestion pipeline. Configure the knowledge base to automatically generate embeddings from restaurant information. Use the Amazon Bedrock Retrieve API with built-in vector search capabilities to query the knowledge base directly by using natural language input.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+Dữ liệu hiện tại lưu
+PostgreSQL
+, cần
+semantic search
+cho 20M nhà hàng + 200M reviews
+Cần:
+complex NL queries
+,
+<500ms cho 95% queries
+,
+cập nhật hàng giờ
+(data freshness), scale cost-effectively
+Yêu cầu:
+LEAST development effort
+✅
+Đáp án đúng:
+Migrate the restaurant data to Amazon OpenSearch Service. Use a foundation model (FM) in Amazon Bedrock to generate vector embeddings from restaurant descriptions, reviews, and menu items. When users submit natural language queries, convert the queries to embeddings by using the same FM. Perform k-nearest neighbors (k-NN) searches to find semantically similar results.
+Semantic Search thực sự
+OpenSearch tối ưu cho hàng trăm triệu document
+k-NN/vector search latency thấp
+Dễ scale
+Phù hợp 20M restaurants + 200M reviews
+Chỉ cần đồng bộ PostgreSQL → OpenSearch định kỳ (mỗi giờ)
+=> Đây là kiến trúc AWS khuyến nghị.
+Các đáp án sai:
+❌ Migrate the restaurant data to Amazon OpenSearch Service. Implement keyword-based search rules that use custom analyzers and relevance tuning to find restaurants based on attributes such as cuisine type, feature, and location. Create Amazon API Gateway HTTP API endpoints to transform user queries into structured search parameters.
+→ Sai. Đây là
+keyword search, không phải semantic search
+— sai loại giải pháp hoàn toàn
+❌ Keep the restaurant data in PostgresQL and implement a pgvector extension. Use a foundation model (FM) in Amazon Bedrock to generate vector embeddings from restaurant data. Store the vector embeddings directly in PostgreSQL. Create an AWS Lambda function to convert natural language queries to vector representations by using the same FM. Configure the Lambda function to perform similarity searches within the database.
+pgvector phù hợp: vài trăm nghìn, vài triệu vectors. Nhưng đề bài có: 220 triệu records.
+Với quy mô này:
+PostgreSQL không phải lựa chọn tối ưu cho vector search.
+Khó đạt 95% < 500 ms.
+Scale kém hơn OpenSearch.
+Ngoài ra còn phải: tự viết Lambda, tự query, tự tối ưu => Development effort cao hơn.
+❌ Migrate restaurant data to an Amazon Bedrock knowledge base by using a custom ingestion pipeline. Configure the knowledge base to automatically generate embeddings from restaurant information. Use the Amazon Bedrock Retrieve API with built-in vector search capabilities to query the knowledge base directly by using natural language input.
+→ Sai. Knowledge Base không phải dịch vụ để thay thế OpenSearch trong hệ thống tìm kiếm quy mô lớn.
+🔑
+Tips and tricks:
+"Migrate" luôn tốn effort hơn "keep/extend"
+trừ khi yêu cầu khác buộc phải đổi
+
+============================================================
+
+=== Question 20 ===
+An ecommerce company is using Amazon Bedrock to build a generative AI (GenAI) application. The application uses AWS Step Functions to orchestrate a multi-agent workflow to produce detailed product descriptions. The workflow consists of three sequential states: a description generator, a technical specifications validator, and a brand voice consistency checker. Each state produces intermediate reasoning traces and outputs that are passed to the next state. The application uses an Amazon S3 bucket for process storage and to store outputs.
+During testing, the company discovers that outputs between Step Functions states frequently exceed the 256 KB quota and cause workflow failures.
+A GenAI Developer needs to revise the application architecture to efficiently handle the Step Functions 256 KB quota and maintain workflow observability. The revised architecture must preserve the existing multi-agent reasoning and acting (ReAct) pattern.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Configure a separate Step Functions state machine to handle each agent's processing. Use Amazon EventBridge to coordinate the execution flow between state machines. Use S3 references for the outputs as event data.
+B. Use AWS Lambda functions to compress outputs to less than 256 KB before each agent state. Configure each agent task to decompress the outputs before processing and to compress results before passing them to the next state.
+C. Configure an Amazon Bedrock integration to use the S3 bucket URI in the input parameter for large outputs. Use the ResultPath field and the ResultSelector field to route S3 references between the agent steps while maintaining the sequential validation workflow. (CORRECT)
+D. Store intermediate outputs in Amazon DynamoDB. Pass only references between states. Create a Map state that retrieves the complete data from DynamoDB when required for each agent's processing step.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Multi-agent workflow (3 states tuần tự), output giữa các state
+vượt quota 256KB
+gây fail
+Cần: xử lý quota hiệu quả,
+giữ nguyên workflow observability
+,
+bảo toàn ReAct pattern
+Yêu cầu:
+LEAST operational overhead
+✅
+Đáp án đúng:
+Configure an Amazon Bedrock integration to use the S3 bucket URI in the input parameter for large outputs. Use the ResultPath field and the ResultSelector field to route S3 references between the agent steps while maintaining the sequential validation workflow.
+Dùng
+native Step Functions fields (ResultPath/ResultSelector)
+để route S3 reference — không cần code Lambda tự viết
+Giữ nguyên workflow tuần tự (ReAct pattern) mà không cần thêm state machine hay hệ thống ngoài
+Các đáp án sai:
+❌ Store intermediate outputs in Amazon DynamoDB. Pass only references between states. Create a Map state that retrieves the complete data from DynamoDB when required for each agent's processing step.
+→ Sai. Thêm
+logic Map state phức tạp
+để lấy dữ liệu từ DynamoDB — nhiều thao tác
+❌ Use AWS Lambda functions to compress outputs to less than 256 KB before each agent state. Configure each agent task to decompress the outputs before processing and to compress results before passing them to the next state.
+→ Sai. Phải viết và maintain
+Lambda code tùy chỉnh
+ở mỗi state → overhead vận hành cao hơn
+❌ Configure a separate Step Functions state machine to handle each agent's processing. Use Amazon EventBridge to coordinate the execution flow between state machines. Use S3 references for the outputs as event data.
+→ Sai. Kiến trúc phức tạp hơn nhiều, khó maintain observability xuyên suốt luồng ReAct tuần tự
+🔑
+Tips and tricks:
+"Output vượt 256KB Step Functions quota"
+→ dùng
+S3 reference qua ResultPath/ResultSelector native
+, tránh Lambda compress/decompress tự viết
+"LEAST operational overhead" + giữ nguyên workflow pattern
+→ chọn field/config native thay vì thêm component mới
+
+============================================================
+
+=== Question 21 ===
+A retail company is developing a customer service application that must process 10,000 daily queries about products, orders, and warranties. The application must be able to respond to queries about 50,000 product documents that are updated every day. The application must integrate with an order management API to check the status of orders and to help process returns. The application must maintain context throughout multi-turn interactions with customers. The company must collect complete audit trails for application responses.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Deploy a fine-tuned Amazon Bedrock Anthropic Claude model for each product category. Create AWS Lambda functions to connect each model to the order management API. Store conversation history in Amazon DynamoDB.
+B. Create a custom model that uses continued pre-training on Amazon Bedrock to handle all product documentation. Set up an Amazon API Gateway REST API that uses AWS Lambda functions to connect the model to the order management API.
+C. Use Amazon SageMaker AI with containers to deploy models. Use Amazon Kendra to search product documents. Use AWS Step Functions to orchestrate calls to the order management API.
+D. Use an Amazon Bedrock agent with action groups to integrate with the order management API. Associate an Amazon Bedrock knowledge base with the agent to search product documentation by using Retrieval Augmentation Generation (RAG). Enable trace events to capture audit trails. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+10k queries/ngày, 50k product docs
+cập nhật mỗi ngày
+, tích hợp
+order management API
+, duy trì
+context đa lượt
+(multi-turn), cần
+audit trails
+Yêu cầu:
+LEAST operational overhead
+✅
+Đáp án đúng:
+Use an Amazon Bedrock agent with action groups to integrate with the order management API. Associate an Amazon Bedrock knowledge base with the agent to search product documentation by using Retrieval Augmentation Generation (RAG). Enable trace events to capture audit trails.
+Bedrock Agent + action groups
+= cách native tích hợp API bên ngoài, không cần Lambda + API Gateway tự xây
+Trace events built-in
+đáp ứng yêu cầu audit trail mà không cần thêm hệ thống logging riêng
+Các đáp án sai:
+❌ Deploy a fine-tuned Amazon Bedrock Anthropic Claude model for each product category. Create AWS Lambda functions to connect each model to the order management API. Store conversation history in Amazon DynamoDB.
+→ Sai. Fine-tune nhiều model = overhead huấn luyện + maintain rất cao, không cần thiết cho use case này
+❌ Create a custom model that uses continued pre-training on Amazon Bedrock to handle all product documentation. Set up an Amazon API Gateway REST API that uses AWS Lambda functions to connect the model to the order management API.
+→ Sai. Continued pre-training tốn kém, không phù hợp dữ liệu
+cập nhật hàng ngày
+(phải train lại liên tục)
+❌ Use Amazon SageMaker AI with containers to deploy models. Use Amazon Kendra to search product documents. Use AWS Step Functions to orchestrate calls to the order management API.
+→ Sai. Tự triển khai & quản lý containers/model = overhead vận hành lớn nhất trong các lựa chọn
+🔑
+Tips and tricks:
+"Tích hợp API bên ngoài + LEAST overhead"
+→
+Bedrock Agent với Action Groups
+(không phải Lambda + API Gateway tự xây)
+Dữ liệu cập nhật thường xuyên (hàng ngày)
+→ tránh fine-tuning/continued pre-training, ưu tiên
+RAG
+
+============================================================
+
+=== Question 22 ===
+A financial services company uses multiple foundation models (FMs) through Amazon Bedrock for its generative AI (GenAI) applications. To comply with a new regulation for GenAI use with sensitive financial data, the company needs a token management solution.
+The token management solution must proactively alert when applications approach model-specific token limits. The solution must also process more than 5,000 requests each minute and maintain token usage metrics to allocate costs across business units.
+Which solution will meet these requirements?
+
+A. Use Amazon API Gateway to create a proxy for all Amazon Bedrock API calls. Configure request throttling based on custom usage plans with predefined token quotas. Configure API Gateway to reject requests that will exceed token limits.
+B. Deploy an Amazon SQS dead-letter queue for failed requests. Configure an AWS Lambda function to analyze token-related failures. Use Amazon CloudWatch Logs Insights to generate reports on token usage patterns based on error logs from Amazon Bedrock API responses.
+C. Implement Amazon Bedrock Guardrails with token quota policies. Capture metrics on rejected requests. Configure Amazon EventBridge rules to trigger notifications based on Amazon Bedrock Guardrails metrics. Use Amazon CloudWatch dashboards to visualize token usage trends across models.
+D. Develop model-specific tokenizers in an AWS Lambda function. Configure the Lambda function to estimate token usage before sending requests to Amazon Bedrock. Configure the Lambda function to publish metrics to Amazon CloudWatch and trigger alarms when requests approach thresholds. Store detailed token usage in Amazon DynamoDB to report costs. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Nhiều FM qua Bedrock, cần tuân thủ quy định GenAI cho
+sensitive financial data
+Yêu cầu:
+proactively alert khi gần token limit theo từng model
+, xử lý
+>5,000 requests/phút
+,
+token usage metrics để allocate cost theo business unit
+✅
+Đáp án đúng:
+Develop model-specific tokenizers in an AWS Lambda function. Configure the Lambda function to estimate token usage before sending requests to Amazon Bedrock. Configure the Lambda function to publish metrics to Amazon CloudWatch and trigger alarms when requests approach thresholds. Store detailed token usage in Amazon DynamoDB to report costs.
+Model-specific tokenizer
+đáp ứng đúng "model-specific token limits" (mỗi model có giới hạn khác nhau)
+Estimate TRƯỚC khi gửi request
+= đúng nghĩa "proactively alert", không phải phản ứng sau khi lỗi
+DynamoDB lưu chi tiết cho phép allocate cost theo business unit
+Các đáp án sai:
+❌ Implement Amazon Bedrock Guardrails with token quota policies. Capture metrics on rejected requests. Configure Amazon EventBridge rules to trigger notifications based on Amazon Bedrock Guardrails metrics. Use Amazon CloudWatch dashboards to visualize token usage trends across models.
+→ Sai. Guardrails
+không có tính năng token quota policy
+— đây không phải chức năng thực sự của Guardrails (Guardrails là content filter)
+❌ Deploy an Amazon SQS dead-letter queue for failed requests. Configure an AWS Lambda function to analyze token-related failures. Use Amazon CloudWatch Logs Insights to generate reports on token usage patterns based on error logs from Amazon Bedrock API responses.
+→ Sai. Đây là cơ chế
+reactive
+(xử lý sau khi request fail), không phải
+proactive
+như yêu cầu
+❌ Use Amazon API Gateway to create a proxy for all Amazon Bedrock API calls. Configure request throttling based on custom usage plans with predefined token quotas. Configure API Gateway to reject requests that will exceed token limits.
+→ Sai. Usage plans của API Gateway giới hạn theo
+request count/rate
+, không theo
+token count
+cụ thể từng model
+🔑
+Tips and tricks:
+"Proactively alert" + "model-specific" limits
+→ cần
+estimate trước khi gửi
+(custom tokenizer), không phải giới hạn sau khi request
+Cẩn thận với đáp án nhắc đến tính năng
+không có thật
+của service (vd: "Guardrails token quota" không tồn tại) — đây là bẫy thường gặp
+
+============================================================
+
+=== Question 23 ===
+A company is building an AI advisory application by using Amazon Bedrock. The application will provide recommendations to customers. The company needs the application to explain its reasoning process and cite specific sources for data. The application must retrieve information from company data sources and show step-by-step reasoning for recommendations. The application must also link data claims to source documents and maintain response latency under 3 seconds.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Use Amazon Bedrock with Anthropic Claude models and chain-of-thought reasoning. Configure custom retrieval tracking with the Amazon Bedrock Knowledge Bases API. Use Amazon CloudWatch to monitor response latency metrics.
+B. Configure Amazon SageMaker AI with a custom Anthropic Claude model. Use the model's reasoning parameter and AWS Lambda to process responses. Add source citations from a separate Amazon RDS database.
+C. Use Amazon Bedrock with Anthropic Claude models and extended thinking. Configure a 4,000-token thinking budget. Store reasoning traces and citations in Amazon DynamoDB for auditing purposes.
+D. Use Amazon Bedrock Knowledge Bases with source attribution enabled. Use the Anthropic Claude Messages API with RAG to set high-relevance thresholds for source documents. Store reasoning and citations in Amazon S3 for auditing purposes. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần:
+giải thích reasoning process
+,
+cite specific sources
+, retrieve từ
+company data sources
+,
+step-by-step reasoning
+, link claims tới source docs,
+latency <3 giây
+Yêu cầu:
+LEAST operational overhead
+✅
+Đáp án đúng:
+Use Amazon Bedrock Knowledge Bases with source attribution enabled. Use the Anthropic Claude Messages API with RAG to set high-relevance thresholds for source documents. Store reasoning and citations in Amazon S3 for auditing purposes.
+Source attribution
+là tính năng
+built-in
+của Bedrock KB — tự động link claim tới source, không cần logic tùy chỉnh
+Kết hợp RAG native, không cần thêm hệ thống tracking riêng
+Các đáp án sai:
+❌ Use Amazon Bedrock with Anthropic Claude models and extended thinking. Configure a 4,000-token thinking budget. Store reasoning traces and citations in Amazon DynamoDB for auditing purposes.
+→ Sai. Extended thinking cho step-by-step reasoning nhưng
+không tự động cite source
+— thiếu phần citation chính xác
+❌ Configure Amazon SageMaker AI with a custom Anthropic Claude model. Use the model's reasoning parameter and AWS Lambda to process responses. Add source citations from a separate Amazon RDS database.
+→ Sai. Xây dựng
+custom model + hệ thống citation riêng
+= overhead cao nhất trong các lựa chọn
+❌ Use Amazon Bedrock with Anthropic Claude models and chain-of-thought reasoning. Configure custom retrieval tracking with the Amazon Bedrock Knowledge Bases API. Use Amazon CloudWatch to monitor response latency metrics.
+→ Sai. "Custom retrieval tracking" nghĩa là phải
+tự viết logic
+thay vì dùng tính năng built-in source attribution
+🔑
+Tips and tricks:
+"Cite sources" + "LEAST overhead"
+→ luôn ưu tiên tính năng
+source attribution built-in
+của Bedrock KB, tránh "custom tracking" tự viết
+
+============================================================
+
+=== Question 24 ===
+A financial services company uses an AI application to process financial documents by using Amazon Bedrock. During business hours, the application handles approximately 10,000 requests each hour, which requires consistent throughput.
+The company uses the CreateProvisionedModelThroughput API to purchase provisioned throughput. Amazon CloudWatch metrics show that the provisioned capacity is unused while on-demand requests are being throttled. The company finds the following code in the application: python response = bedrock_runtime.invoke_model(modelId="anthropic.claude-v2", body=json.dumps(payload))
+The company needs the application to use the provisioned throughput and to resolve the throttling issues.
+Which solution will meet these requirements?
+
+A. Add exponential backoff retry logic to handle throttling exceptions during peak hours.
+B. Modify the application to use the InvokeModelWithResponseStream API instead of the InvokeModel API.
+C. Replace the model ID parameter with the ARN of the provisioned model that the CreateProvisionedModelThroughput API returns. (CORRECT)
+D. Increase the number of model units (MUs) in the provisioned throughput configuration.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Company đã mua
+provisioned throughput
+nhưng
+CloudWatch cho thấy capacity không dùng, on-demand bị throttle
+Code hiện tại:
+invoke_model(modelId="anthropic.claude-v2", ...)
+— dùng
+base model ID
+, không phải provisioned throughput ARN
+✅
+Đáp án đúng:
+Replace the model ID parameter with the ARN of the provisioned model that the CreateProvisionedModelThroughput API returns.
+Nguyên nhân gốc: code đang gọi
+base model ID
+(routing tới on-demand pool) thay vì
+ARN của provisioned throughput
+Sửa đúng tham số này giải quyết trực tiếp vấn đề "provisioned capacity unused, on-demand throttled"
+Các đáp án sai:
+❌ Increase the number of model units (MUs) in the provisioned throughput configuration.
+→ Sai. Không giải quyết được vấn đề gốc — vẫn gọi sai endpoint dù có tăng MU
+❌ Add exponential backoff retry logic to handle throttling exceptions during peak hours.
+→ Sai. Chỉ xử lý throttling, không sửa nguyên nhân gốc là gọi sai model ID
+❌ Modify the application to use the InvokeModelWithResponseStream API instead of the InvokeModel API.
+→ Sai. Đây là thay đổi về streaming,
+không liên quan gì đến việc dùng đúng provisioned throughput
+🔑
+Tips and tricks:
+Provisioned throughput "unused" trong khi on-demand bị throttle
+→ luôn kiểm tra code có đang gọi
+đúng ARN của provisioned model
+hay không (không phải base model ID)
+Đây là bug pattern kinh điển: mua provisioned nhưng code vẫn point tới on-demand
+
+============================================================
+
+=== Question 25 ===
+A company is designing a canary deployment strategy for a payment processing API. The system must support automated gradual traffic shifting between multiple Amazon Bedrock models based on real-time inference metrics, historical traffic patterns, and service health. The solution must be able to gradually increase traffic to new model versions. The system must increase traffic if metrics remain healthy and decrease traffic if the performance degrades below acceptable thresholds.
+The company needs to comprehensively monitor inference latency and error rates during the deployment phase. The company must also be able to halt deployments and revert to a previous model version without any manual intervention.
+Which solution will meet these requirements?
+
+A. Use Amazon OpenSearch Service to track inference logs. Configure OpenSearch Service to invoke an AWS Systems Manager Automation runbook to update Amazon Bedrock model endpoints to shift traffic based on the inference logs.
+B. Use Amazon SageMaker AI endpoint variants to represent multiple Amazon Bedrock model versions. Use variant weights to shift traffic. Use Amazon CloudWatch to monitor performance metrics. Use SageMaker Model Monitor to trigger AWS Lambda functions to roll back a model deployment if performance drops below a specified threshold. Configure an Amazon EventBridge rule to roll back model deployments if an anomaly is detected.
+C. Use AWS Lambda functions to invoke various Amazon Bedrock model versions. Use an Amazon API Gateway HTTP API with stage variables and weighted routing to shift traffic gradually to new model versions. Use Amazon CloudWatch to monitor performance metrics. Use external logic to adjust traffic between model versions and to roll back if performance falls below thresholds.
+D. Use Amazon Bedrock with provisioned throughput to host the versions of the model. Configure an Amazon EventBridge rule to invoke an AWS Step Functions workflow when a new model version is released. Configure the workflow to shift traffic in stages, wait for a specified time period, and invoke an AWS Lambda function to check Amazon CloudWatch performance metrics. Configure the workflow to increase traffic if the metrics meet thresholds and to trigger a traffic rollback if performance metrics fall below thresholds. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần
+tự động shift traffic dần dần
+giữa các Bedrock model versions dựa trên
+real-time metrics
+Tự động
+tăng traffic nếu healthy, giảm nếu degrade
+, tự động
+halt & rollback không cần can thiệp thủ công
+(without any manual intervention)
+✅
+Đáp án đúng:
+Use Amazon Bedrock with provisioned throughput to host the versions of the model. Configure an Amazon EventBridge rule to invoke an AWS Step Functions workflow when a new model version is released. Configure the workflow to shift traffic in stages, wait for a specified time period, and invoke an AWS Lambda function to check Amazon CloudWatch performance metrics. Configure the workflow to increase traffic if the metrics meet thresholds and to trigger a traffic rollback if performance metrics fall below thresholds.
+Hoàn toàn tự động hóa
+bằng EventBridge + Step Functions, không cần con người can thiệp ở bất kỳ bước nào
+Logic rollback được
+định nghĩa sẵn trong workflow
+, đúng yêu cầu "without any manual intervention"
+Các đáp án sai:
+❌ Use AWS Lambda functions to invoke various Amazon Bedrock model versions. Use an Amazon API Gateway HTTP API with stage variables and weighted routing to shift traffic gradually to new model versions. Use Amazon CloudWatch to monitor performance metrics. Use external logic to adjust traffic between model versions and to roll back if performance falls below thresholds.
+→ Sai. Cụm từ
+"external logic"
+ngụ ý cần can thiệp/logic bên ngoài không tự động hoàn toàn — vi phạm yêu cầu
+❌ Use Amazon SageMaker AI endpoint variants to represent multiple Amazon Bedrock model versions. Use variant weights to shift traffic. Use Amazon CloudWatch to monitor performance metrics. Use SageMaker Model Monitor to trigger AWS Lambda functions to roll back a model deployment if performance drops below a specified threshold. Configure an Amazon EventBridge rule to roll back model deployments if an anomaly is detected.
+→ Sai. Bedrock models
+không host trên SageMaker endpoint variants
+— sai kiến trúc kỹ thuật cơ bản
+❌ Use Amazon OpenSearch Service to track inference logs. Configure OpenSearch Service to invoke an AWS Systems Manager Automation runbook to update Amazon Bedrock model endpoints to shift traffic based on the inference logs.
+→ Sai. Không phải cơ chế real-time traffic shifting tự động dựa trên metrics, thiết kế không phù hợp
+🔑
+Tips and tricks:
+"Without any manual intervention" / "automated"
+→ loại ngay đáp án có cụm
+"external logic"
+hoặc yêu cầu bước thủ công ngầm định
+Canary/traffic shifting tự động cho Bedrock
+→
+EventBridge + Step Functions
+(không phải SageMaker endpoint variants — Bedrock ≠ SageMaker hosting)
+
+============================================================
+
+=== Question 26 ===
+A company is using Amazon Bedrock to build a customer-facing AI assistant to handle sensitive customer inquiries. The company must use defense-in-depth safety controls to block sophisticated prompt injection attacks. The company must keep audit logs of all safety interventions. The AI assistant must have cross-Region failover capabilities.
+Which solution will meet these requirements?
+
+A. Deploy Amazon Comprehend custom classification to detect prompt injection attacks. Use Amazon API Gateway to validate requests. Use Amazon CloudWatch Logs with custom metrics to capture detailed intervention events.
+B. Configure Amazon Bedrock guardrails to use content filters to protect against prompt injection attacks. Set the content filters to high. Use AWS WAF to block suspicious inputs. Use AWS CloudTrail to log API calls for audits.
+C. Configure Amazon Bedrock guardrails to use custom content filters to protect against harmful content. Set the content filters to high. Use word filters to protect against known attack patterns. Configure cross-Region guardrail replication to provide failover capabilities. Store logs in AWS CloudTrail for compliance auditing.
+D. Configure Amazon Bedrock guardrails to use content filters to protect against prompt injection attacks. Set the content filters to high. Use a guardrail profile to implement cross-Region guardrail inference. Use Amazon CloudWatch Logs with custom metrics to capture detailed guardrail intervention events. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần
+defense-in-depth
+chặn
+sophisticated prompt injection attacks
+,
+audit logs mọi safety intervention
+,
+cross-Region failover
+cho AI assistant
+✅
+Đáp án đúng:
+Configure Amazon Bedrock guardrails to use content filters to protect against prompt injection attacks. Set the content filters to high. Use a guardrail profile to implement cross-Region guardrail inference. Use Amazon CloudWatch Logs with custom metrics to capture detailed guardrail intervention events.
+Guardrail profile với cross-Region guardrail inference
+là tính năng chính xác đáp ứng "cross-Region failover" cho guardrails
+CloudWatch Logs custom metrics ghi lại
+chi tiết từng guardrail intervention
+— đúng yêu cầu audit
+Các đáp án sai:
+❌ Configure Amazon Bedrock guardrails to use content filters to protect against prompt injection attacks. Set the content filters to high. Use AWS WAF to block suspicious inputs. Use AWS CloudTrail to log API calls for audits.
+→ Sai. WAF bảo vệ tầng network/HTTP, không phải giải pháp defense-in-depth cho
+prompt injection ở tầng nội dung
+; CloudTrail chỉ log API calls chứ không phải chi tiết safety intervention
+❌ Deploy Amazon Comprehend custom classification to detect prompt injection attacks. Use Amazon API Gateway to validate requests. Use Amazon CloudWatch Logs with custom metrics to capture detailed intervention events.
+→ Sai. Phải
+tự xây dựng và train model classification riêng
+— không phải giải pháp native, overhead cao và không đảm bảo "sophisticated" attack detection
+❌ Configure Amazon Bedrock guardrails to use custom content filters to protect against harmful content. Set the content filters to high. Use word filters to protect against known attack patterns. Configure cross-Region guardrail replication to provide failover capabilities. Store logs in AWS CloudTrail for compliance auditing.
+→ Sai. Sai trọng tâm:
+harmful content ≠ prompt injection
+; word filters (dựa từ khóa) không đủ mạnh cho
+"sophisticated"
+attacks; "cross-Region replication" không phải thuật ngữ chính xác (đúng là "cross-Region guardrail profile/inference")
+🔑
+Tips and tricks:
+"Cross-Region failover" cho Bedrock Guardrails
+→
+guardrail profile / cross-Region guardrail inference
+(thuật ngữ chính xác, không phải "replication")
+"Sophisticated prompt injection"
+→
+content filters set to HIGH
+, không phải word filter (word filter quá đơn giản)
+
+============================================================
+
+=== Question 27 ===
+A financial services company needs to build a document analysis system that uses Amazon Bedrock to process quarterly reports. The system must analyze financial data, perform sentiment analysis, and validate compliance across batches of reports. Each batch contains 5 reports. Each report requires multiple foundation model (FM) calls. The solution must finish the analysis within 10 seconds for each batch. Current sequential processing takes 45 seconds for each batch.
+Which solution will meet these requirements?
+
+A. Use AWS Lambda functions with provisioned concurrency to process each analysis type sequentially. Configure the Lambda function timeouts to 10 seconds. Configure automatic retries with exponential backoff.
+B. Use AWS Step Functions with a Parallel state to invoke separate AWS Lambda functions for each analysis type simultaneously. Configure Amazon Bedrock client timeouts. Use Amazon CloudWatch metrics to track execution time and model inference latency. (CORRECT)
+C. Create an Amazon SQS queue to buffer analysis requests. Deploy multiple AWS Lambda functions with reserved concurrency. Configure each Lambda function to process different aspects of each report sequentially and then combine the results.
+D. Deploy an Amazon ECS cluster that runs containers that process each report sequentially. Use a load balancer to distribute batch workloads. Configure an auto-scaling policy based on CPU utilization to handle demand fluctuations.
+
+Correct answer(s): B
+
+Explanation:
+📝
+Tóm tắt đề:
+Mỗi batch 5 reports, mỗi report cần
+nhiều FM call
+(financial analysis, sentiment analysis, compliance validation)
+Hiện tại
+sequential = 45 giây
+, cần đạt
+≤10 giây/batch
+✅
+Đáp án đúng:
+Use AWS Step Functions with a Parallel state to invoke separate AWS Lambda functions for each analysis type simultaneously. Configure Amazon Bedrock client timeouts. Use Amazon CloudWatch metrics to track execution time and model inference latency.
+Parallel state
+chạy đồng thời các loại phân tích (financial, sentiment, compliance) thay vì tuần tự → giảm thời gian đáng kể
+Đây là cách trực tiếp nhất giải quyết bottleneck "sequential processing"
+Các đáp án sai:
+❌ Use AWS Lambda functions with provisioned concurrency to process each analysis type sequentially. Configure the Lambda function timeouts to 10 seconds. Configure automatic retries with exponential backoff.
+→ Sai. Đề bài ghi rõ
+"process each analysis type sequentially"
+— vẫn tuần tự, không giải quyết vấn đề gốc
+❌ Create an Amazon SQS queue to buffer analysis requests. Deploy multiple AWS Lambda functions with reserved concurrency. Configure each Lambda function to process different aspects of each report sequentially and then combine the results.
+→ Sai. Vẫn
+xử lý tuần tự
+, chỉ thêm buffer SQS, không giảm được thời gian tổng
+❌ Deploy an Amazon ECS cluster that runs containers that process each report sequentially. Use a load balancer to distribute batch workloads. Configure an auto-scaling policy based on CPU utilization to handle demand fluctuations.
+→ Sai. Cũng ghi rõ
+sequentially
+, không đáp ứng yêu cầu giảm thời gian bằng song song hóa
+🔑
+Tips and tricks:
+"Giảm thời gian xử lý từ X→Y giây" + nhiều tác vụ độc lập trong 1 report
+→
+Step Functions Parallel state
+(song song hóa)
+Đọc kỹ từ khóa
+"sequentially"
+trong đáp án — nếu đề bài cần nhanh hơn mà đáp án vẫn ghi "sequentially" thì loại ngay
+
+============================================================
+
+=== Question 28 ===
+A company is building a generative AI (GenAI) application that produces content based on a variety of internal and external data sources. The company wants to ensure that the generated output is fully traceable. The application must support data source registration and enable metadata tagging to attribute content to its original source. The application must also maintain audit logs of data access and usage throughout the pipeline.
+Which solution will meet these requirements?
+
+A. Use AWS Lake Formation to catalog data sources and control access. Apply metadata tags directly in Amazon S3. Use AWS CloudTrail to monitor API activity.
+B. Store data in Amazon S3 and use object tagging for attribution. Use AWS Glue Data Catalog to manage schema information. Use AWS CloudTrail to log access to S3 buckets.
+C. Use AWS Glue Data Catalog to register and tag data sources. Use Amazon CloudWatch Logs to monitor access patterns and application behavior.
+D. Use AWS Glue Data Catalog to register all data sources. Apply metadata tags to attribute data sources. Use AWS CloudTrail to log access and activity across services. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+GenAI app dùng dữ liệu từ
+nhiều nguồn nội bộ và bên ngoài
+(internal and external data sources)
+Cần:
+data source registration
+,
+metadata tagging
+để attribute content,
+audit logs of access/usage xuyên suốt pipeline
+✅
+Đáp án đúng:
+Use AWS Glue Data Catalog to register all data sources. Apply metadata tags to attribute data sources. Use AWS CloudTrail to log access and activity across services.
+Glue Data Catalog
+đăng ký được
+cả nguồn nội bộ lẫn bên ngoài
+(không giới hạn ở S3 như Lake Formation)
+CloudTrail log
+"across services"
+= đúng yêu cầu audit toàn pipeline
+Các đáp án sai:
+❌ Use AWS Lake Formation to catalog data sources and control access. Apply metadata tags directly in Amazon S3. Use AWS CloudTrail to monitor API activity.
+→ Sai. Lake Formation chủ yếu quản lý
+data lake trên S3
+, hạn chế với nguồn dữ liệu
+bên ngoài
+(external)
+❌ Use AWS Glue Data Catalog to register and tag data sources. Use Amazon CloudWatch Logs to monitor access patterns and application behavior.
+→ Sai. CloudWatch Logs chỉ theo dõi
+access patterns/application behavior
+, không phải audit log toàn diện như CloudTrail
+❌ Store data in Amazon S3 and use object tagging for attribution. Use AWS Glue Data Catalog to manage schema information. Use AWS CloudTrail to log access to S3 buckets.
+→ Sai. Chỉ log access tới
+S3 buckets
+, không bao quát toàn bộ pipeline/services như yêu cầu
+🔑
+Tips and tricks:
+"Internal AND external data sources"
+→
+Glue Data Catalog
+(không giới hạn ở S3 như Lake Formation)
+"Audit logs xuyên suốt pipeline/across services"
+→
+CloudTrail
+(không phải CloudWatch Logs, vốn chỉ theo dõi app behavior)
+
+============================================================
+
+=== Question 29 ===
+A healthcare company uses Amazon Bedrock to deploy an application that generates summaries of clinical documents. The application experiences inconsistent response quality with occasional factual hallucinations. Monthly costs exceed the company's projections by 40%. A GenAI developer must implement a near real-time monitoring solution to detect hallucinations, identify abnormal token consumption, and provide early warnings of cost anomalies. The solution must require minimal custom development work and maintenance overhead.
+Which solution will meet these requirements?
+
+A. Configure Amazon CloudWatch alarms to monitor InputTokenCount and OutputTokenCount metrics to detect anomalies. Store model invocation logs in an Amazon S3 bucket. Use AWS Glue and Amazon Athena to identify potential hallucinations.
+B. Use AWS CloudTrail to log all Amazon Bedrock API calls. Create a custom dashboard in Amazon QuickSight to visualize token usage patterns. Use Amazon SageMaker Model Monitor to detect quality drift in generated summaries.
+C. Run Amazon Bedrock evaluation jobs that use LLM-based judgments to detect hallucinations. Configure Amazon CloudWatch to track token usage. Create an AWS Lambda function to process CloudWatch metrics. Configure the Lambda function to send usage pattern notifications.
+D. Configure Amazon Bedrock to store model invocation logs in an Amazon S3 bucket. Enable text output logging. Configure Amazon Bedrock guardrails to run contextual grounding checks to detect hallucinations. Create Amazon CloudWatch anomaly detection alarms for token usage metrics. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Response quality không ổn định,
+hallucination
+, chi phí vượt 40% dự kiến
+Cần:
+near real-time
+, phát hiện hallucination,
+abnormal token consumption
+,
+early warning cost anomaly
+Yêu cầu:
+minimal custom development + maintenance overhead
+✅
+Đáp án đúng:
+Configure Amazon Bedrock to store model invocation logs in an Amazon S3 bucket. Enable text output logging. Configure Amazon Bedrock guardrails to run contextual grounding checks to detect hallucinations. Create Amazon CloudWatch anomaly detection alarms for token usage metrics.
+Contextual grounding check
+là tính năng
+built-in của Bedrock Guardrails
+chuyên phát hiện hallucination — không cần code tự viết
+CloudWatch anomaly detection
+tự động cảnh báo bất thường token usage — native, minimal dev
+Các đáp án sai:
+❌ Configure Amazon CloudWatch alarms to monitor InputTokenCount and OutputTokenCount metrics to detect anomalies. Store model invocation logs in an Amazon S3 bucket. Use AWS Glue and Amazon Athena to identify potential hallucinations.
+→ Sai. Athena/Glue
+không có khả năng phát hiện hallucination
+thực sự, cần xây logic phân tích riêng → nhiều custom dev
+❌ Run Amazon Bedrock evaluation jobs that use LLM-based judgments to detect hallucinations. Configure Amazon CloudWatch to track token usage. Create an AWS Lambda function to process CloudWatch metrics. Configure the Lambda function to send usage pattern notifications.
+→ Sai. Evaluation jobs thường chạy
+batch, không phải near real-time
+; cần thêm Lambda custom xử lý
+❌ Use AWS CloudTrail to log all Amazon Bedrock API calls. Create a custom dashboard in Amazon QuickSight to visualize token usage patterns. Use Amazon SageMaker Model Monitor to detect quality drift in generated summaries.
+→ Sai. SageMaker Model Monitor thiết kế cho
+drift của ML model truyền thống
+, không tối ưu cho hallucination của LLM; nhiều thành phần custom cần xây
+🔑
+Tips and tricks:
+Phát hiện hallucination + minimal custom dev
+→
+Bedrock Guardrails contextual grounding check
+(native, không cần Comprehend/Athena/custom logic)
+Cost/token anomaly + near real-time
+→
+CloudWatch Anomaly Detection
+(không phải SageMaker Model Monitor - đó là cho traditional ML drift)
+
+============================================================
+
+=== Question 30 ===
+A financial services company is developing a Retrieval Augmented Generation (RAG) application to help investment analysts query complex financial relationships across multiple investment vehicles, market sectors, and regulatory environments. The dataset contains highly interconnected entities that have multi-hop relationships. The analysts must be able to examine the relationships holistically to provide accurate investment guidance. The application must deliver comprehensive answers that capture indirect relationships between financial entities. The application must produce responses in less than 3 seconds.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Use Amazon DynamoDB to store financial data in a custom indexing system. Use an AWS Lambda function to query relevant records based on input questions. Use Amazon SageMaker AI to generate responses.
+B. Use an Amazon OpenSearch Serverless vector database with k-nearest neighbor (k-NN) searches. Implement manual relationship mapping in an application layer that runs in an Amazon EC2 Auto Scaling group.
+C. Use Amazon Bedrock Knowledge Bases and an Amazon OpenSearch Service vector store to implement custom relationship identification logic that uses AWS Lambda functions to query multiple vector embeddings in sequence.
+D. Use Amazon Bedrock Knowledge Bases with Graph RAG and Amazon Neptune Analytics to store the financial data. Analyze the multi-hop relationships between entities and automatically identify related information across documents. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Dữ liệu tài chính có
+quan hệ đa cấp liên kết chặt chẽ
+(multi-hop relationships), cần xem xét
+quan hệ gián tiếp
+(indirect relationships) giữa các entity
+Yêu cầu:
+<3 giây
+,
+LEAST operational overhead
+✅
+Đáp án đúng:
+Use Amazon Bedrock Knowledge Bases with Graph RAG and Amazon Neptune Analytics to store the financial data. Analyze the multi-hop relationships between entities and automatically identify related information across documents.
+GraphRAG + Neptune Analytics
+là tính năng
+native, chuyên biệt
+cho multi-hop relationship reasoning — không cần tự xây logic
+"Automatically identify" = built-in feature, đúng "LEAST overhead"
+Các đáp án sai:
+❌ Use Amazon Bedrock Knowledge Bases and an Amazon OpenSearch Service vector store to implement custom relationship identification logic that uses AWS Lambda functions to query multiple vector embeddings in sequence.
+→ Sai. Phải
+tự viết logic
+truy vấn tuần tự nhiều vector embeddings → overhead cao, không tận dụng graph reasoning tự nhiên
+❌ Use an Amazon OpenSearch Serverless vector database with k-nearest neighbor (k-NN) searches. Implement manual relationship mapping in an application layer that runs in an Amazon EC2 Auto Scaling group.
+→ Sai.
+"Manual relationship mapping"
+= overhead vận hành cực cao, hoàn toàn trái với yêu cầu LEAST overhead
+❌ Use Amazon DynamoDB to store financial data in a custom indexing system. Use an AWS Lambda function to query relevant records based on input questions. Use Amazon SageMaker AI to generate responses.
+→ Sai. Toàn bộ là
+hệ thống custom tự xây
+từ đầu, overhead cao nhất
+🔑
+Tips and tricks:
+"Multi-hop relationships" / "indirect relationships" giữa entities
+→
+GraphRAG + Amazon Neptune Analytics
+(tính năng chuyên biệt, không phải vector search thông thường)
+"LEAST overhead" + quan hệ phức tạp
+→ luôn ưu tiên giải pháp có "automatically identify" native thay vì "manual"/"custom logic"
+
+============================================================
+
+=== Question 31 ===
+A company is using AWS Lambda and REST APIs to build a reasoning agent to automate support workflows. The system must preserve memory across interactions, share the relevant agent state, and support event-driven invocation and synchronous invocation. The system must also enforce access control and session-based permissions.
+Which combination of steps provides the MOST scalable solution? (Choose two.)
+
+A. Deploy the reasoning logic as a container on Amazon ECS behind Amazon API Gateway. Use Amazon Aurora to store memory data and identity data.
+B. Use Amazon Bedrock Agents for reasoning and conversation management. Use AWS Step Functions and Amazon SQS queues for orchestration. Store the agent state in Amazon DynamoDB to maintain memory between steps.
+C. Register the Lambda functions and the REST APIs as actions by using Amazon API Gateway and Amazon EventBridge. Enable Amazon Bedrock AgentCore to invoke the Lambda functions and the REST APIs without custom orchestration code. (CORRECT)
+D. Use Amazon Bedrock AgentCore to manage memory and session-aware reasoning. Deploy the agent with built-in identity support, event handling, and observability. (CORRECT)
+E. Build a custom RAG pipeline by using Amazon Kendra and Amazon Bedrock. Use AWS Lambda to orchestrate tool invocations. Store the agent state in Amazon S3.
+
+Correct answer(s): C, D
+
+Explanation:
+A.
+Deploy the reasoning logic as a container on Amazon ECS behind Amazon API Gateway. Use Amazon Aurora to store memory data and identity data.
+
+============================================================
+
+=== Question 32 ===
+An ecommerce company is developing a generative AI (GenAI) solution that uses Amazon Bedrock with Anthropic Claude to recommend products to customers. Customers report that some of the recommended products are not available for sale on the website or are not relevant to the customer. Customers also report that the solutions takes a long time to generate some recommendations.
+The company investigates the issues and finds that most interactions between customers and the product recommendation solution are unique. The company confirms that the solutions recommends products that are not in the company's product catalog. The company must resolve these issues.
+Which solution will meet this requirement?
+
+A. Increase grounding within Amazon Bedrock Guardrails. Enable Automated Reasoning checks. Set up provisioned throughput. (CORRECT)
+B. Create an Amazon Bedrock knowledge base. Implement Retrieval Augmented Generation (RAG). Set the PerformanceConfigLatency parameter to optimized.
+C. Use prompt engineering to restrict the model responses to relevant products. Use streaming techniques such as the InvokeModelWithResponseStream action to reduce perceived latency for the customers.
+D. Store product catalog data in Amazon OpenSearch Service. Validate the model's product recommendations against the product catalog. Use Amazon DynamoDB to implement response caching.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Model
+recommend sản phẩm không có trong catalog
+(hallucination),
+chậm
+khi generate
+Interactions
+unique
+(không lặp lại → caching kém hiệu quả)
+✅
+Đáp án đúng:
+Increase grounding within Amazon Bedrock Guardrails. Enable Automated Reasoning checks. Set up provisioned throughput.
+Automated Reasoning checks
+là tính năng Guardrails xác minh tính đúng đắn logic/factual với độ chắc chắn toán học — khớp trực tiếp với "recommend sản phẩm không tồn tại"
+Grounding
+đảm bảo output bám theo dữ liệu catalog thực tế
+Provisioned throughput
+giải quyết vấn đề chậm
+Các đáp án sai:
+❌ Use prompt engineering to restrict the model responses to relevant products. Use streaming techniques such as the InvokeModelWithResponseStream action to reduce perceived latency for the customers.
+→ Sai. Streaming chỉ giảm
+cảm giác chờ
+, không giảm latency thực; prompt engineering không đảm bảo loại bỏ hallucination catalog
+❌ Create an Amazon Bedrock knowledge base. Implement Retrieval Augmented Generation (RAG). Set the PerformanceConfigLatency parameter to optimized.
+→ Sai. Có thể cải thiện phần nào nhưng thiếu cơ chế
+kiểm tra tính đúng đắn tường minh
+như Automated Reasoning
+❌ Store product catalog data in Amazon OpenSearch Service. Validate the model's product recommendations against the product catalog. Use Amazon DynamoDB to implement response caching.
+→ Sai. Đề bài nói rõ
+interactions là unique
+→ caching (DynamoDB) sẽ
+không hiệu quả
+, loại ngay
+🔑
+Tips and tricks:
+"Recommend/output sai sự thật, cần đúng 100% theo rule đã định"
+→
+Automated Reasoning checks
+(tính năng Guardrails xác minh logic chính xác)
+"Interactions unique"
+→ loại các đáp án dùng
+caching
+(không lặp lại thì cache vô dụng)
+
+============================================================
+
+=== Question 33 ===
+A financial services company is developing a customer service AI assistant by using Amazon Bedrock. The AI assistant must not discuss investment advice with users. The AI assistant must block harmful content, mask personally identifiable information (PII), and maintain audit trails for compliance reporting. The AI assistant must apply content filtering to both user inputs and model responses based on content sensitivity.
+The company requires an Amazon Bedrock guardrail configuration that will effectively enforce policies with minimal false positives. The solution must provide multiple handling strategies for multiple types of sensitive content.
+Which solution will meet these requirements?
+
+A. Configure a guardrail and set content filters to medium for harmful content. Set up denied topics for investment advice and include clear definitions and sample phrases to block. Configure sensitive information filters to mask PII in responses and to block financial information in inputs. Enable both input and output evaluations that use custom blocked messages for audits. (CORRECT)
+B. Configure a single guardrail and set content filters to high for all categories. Set up denied topics for investment advice and include sample phrases to block. Set up sensitive information filters that apply the block action for all PII entities. Apply the guardrail to all model inference calls.
+C. Configure multiple guardrails by using tiered policies. Create one guardrail and set content filters to high. Configure the guardrail to block PII for public interactions. Configure a second guardrail and set content filters to medium. Configure the second guardrail to mask PII for internal use. Configure multiple topic-specific guardrails to block investment advice and set up contextual grounding checks.
+D. Create a separate guardrail for each use case. Create one guardrail that applies a harmful content filter. Create a guardrail to apply topic filters for investment advice. Create a guardrail to apply sensitive information filters to block PII. Use AWS Step Functions to chain the guardrails together sequentially. Use conditional logic based on content classification.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Chặn
+investment advice
+, chặn
+harmful content
+,
+mask PII
+, audit trails
+Cần:
+minimal false positives
+,
+multiple handling strategies cho nhiều loại nội dung nhạy cảm
+(khác nhau: mask vs block)
+✅
+Đáp án đúng:
+Configure a guardrail and set content filters to medium for harmful content. Set up denied topics for investment advice and include clear definitions and sample phrases to block. Configure sensitive information filters to mask PII in responses and to block financial information in inputs. Enable both input and output evaluations that use custom blocked messages for audits.
+Nhiều chiến lược xử lý khác nhau trong 1 guardrail
+: mask (PII) + block (financial info) + deny topic (investment) — đúng "multiple handling strategies"
+Filter
+medium
+(không phải high) → giảm false positives đúng yêu cầu
+Các đáp án sai:
+❌ Configure a single guardrail and set content filters to high for all categories. Set up denied topics for investment advice and include sample phrases to block. Set up sensitive information filters that apply the block action for all PII entities. Apply the guardrail to all model inference calls.
+→ Sai. Tất cả đều dùng
+1 chiến lược duy nhất (block)
+— không đáp ứng "multiple handling strategies"; filter HIGH tăng false positives, vi phạm "minimal false positives"
+❌ Configure multiple guardrails by using tiered policies. Create one guardrail and set content filters to high. Configure the guardrail to block PII for public interactions. Configure a second guardrail and set content filters to medium. Configure the second guardrail to mask PII for internal use. Configure multiple topic-specific guardrails to block investment advice and set up contextual grounding checks.
+→ Sai. Đề bài không phân biệt public/internal use case; tạo 2 guardrail tăng độ phức tạp không cần thiết
+❌ Create a separate guardrail for each use case. Create one guardrail that applies a harmful content filter. Create a guardrail to apply topic filters for investment advice. Create a guardrail to apply sensitive information filters to block PII. Use AWS Step Functions to chain the guardrails together sequentially. Use conditional logic based on content classification.
+→ Sai. Overhead cao với nhiều guardrail + orchestration, không cần thiết khi 1 guardrail đã đủ khả năng
+🔑
+Tips and tricks:
+"Multiple handling strategies cho multiple content types"
+→ 1 guardrail với
+mask + block + deny topic
+kết hợp (không phải tất cả cùng 1 action)
+"Minimal false positives"
+→ ưu tiên filter
+medium
+, tránh
+high
+trừ khi đề yêu cầu strict
+
+============================================================
+
+=== Question 34 ===
+Company configures a landing zone in AWS Control Tower. The company handles sensitive data that must remain within the European Union. The company must use only the eu-central-1 Region. The company uses SCPs to enforce data residency policies. GenAI developers at the company are assigned IAM roles that have full permissions for Amazon Bedrock.
+The company must ensure that GenAI developers can use the Amazon Nova Pro model through Amazon Bedrock only by using cross-Region inference (CRI) and only in eu-central-1. The company enables model access for the GenAI developer IAM roles in Amazon Bedrock. However, when a GenAI developer attempts to invoke the model through the Amazon Bedrock Chat/Text playground, the GenAI developer receives the following error.
+User: arn:aws:sts::123456789012:assumed-role/AssumedDevRole/DevUserName
+Action: bedrock:InvokeModelWithResponseStream
+On resource(s): arn:aws:bedrock:eu-west-3::foundation-model/amazon.nova-pro-v1:0
+Context: a service control policy explicitly denies the action
+The company needs a solution to resolve the error. The solution must retain the company's existing governance controls and must provide precise access control. The solution must comply with the company's existing data residency policies.
+Which combination of solutions will meet these requirements? (Choose two.)
+
+A. Extend the existing SCP to enable CRI for the eu.* inference profile.
+B. Add an AdministratorAccess policy to the GenAI developer IAM role.
+C. Extend the existing SCPs to enable CRI for the eu.amazon.nova-pro-v1:0 inference profile. (CORRECT)
+D. Enable Amazon Bedrock model access for Amazon Nova Pro in the eu-west-3 Region.
+E. Validate that the GenAI developer IAM roles have permissions to invoke Amazon Nova Pro through the eu.amazon.nova-pro.v1:0 inference profile on all European Union AWS Regions that can serve the model. (CORRECT)
+
+Correct answer(s): C, E
+
+Explanation:
+A.
+Extend the existing SCP to enable CRI for the eu.* inference profile.
+
+============================================================
+
+=== Question 35 ===
+A healthcare company is using Amazon Bedrock to build a Retrieval Augmented Generation (RAG) application that helps practitioners make clinical decisions. The application must achieve high accuracy for patient information retrievals, identify hallucinations in generated content, and reduce human review costs.
+Which solution will meet these requirements?
+
+A. Use Amazon Comprehend to analyze and classify RAG responses and to extract medical entities and relationships. Use AWS Step Functions to orchestrate automated evaluations. Configure Amazon CloudWatch metrics to track entity recognition confidence scores. Configure CloudWatch to send an alert when accuracy falls below specified thresholds.
+B. Implement automated large language model (LLM)-based evaluations that use a specialized model that is fine-tuned for medical content to assess all responses. Deploy AWS Lambda functions to parallelize evaluations. Publish results to Amazon CloudWatch metrics that track relevance and factual accuracy.
+C. Configure Amazon CloudWatch Synthetics to generate test queries that have known answers on a regular schedule, and track model success rates. Set up dashboards that compare synthetic test results against expected outcomes.
+D. Deploy a hybrid evaluation system that uses an automated LLM-as-a-judge evaluation to initially screen responses and targeted human reviews for edge cases. Use Amazon SageMaker Feature Store to maintain evaluation datasets. Use a built-in Amazon Bedrock evaluation to track retrieval precision and hallucination rates. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần:
+độ chính xác cao
+cho patient info retrieval,
+phát hiện hallucination
+,
+giảm chi phí human review
+✅
+Đáp án đúng:
+Deploy a hybrid evaluation system that uses an automated LLM-as-a-judge evaluation to initially screen responses and targeted human reviews for edge cases. Use Amazon SageMaker Feature Store to maintain evaluation datasets. Use a built-in Amazon Bedrock evaluation to track retrieval precision and hallucination rates.
+Hybrid approach
+: LLM-as-judge tự động lọc phần lớn,
+chỉ human review cho edge case
+→ đúng nghĩa "giảm chi phí human review"
+Built-in Bedrock evaluation
+đo cả retrieval precision (độ chính xác) và hallucination rates — đáp ứng cả 2 yêu cầu còn lại
+Các đáp án sai:
+❌ Use Amazon Comprehend to analyze and classify RAG responses and to extract medical entities and relationships. Use AWS Step Functions to orchestrate automated evaluations. Configure Amazon CloudWatch metrics to track entity recognition confidence scores. Configure CloudWatch to send an alert when accuracy falls below specified thresholds.
+→ Sai. Comprehend chỉ
+trích xuất/phân loại entity
+, không phải công cụ đánh giá hallucination toàn diện
+❌ Implement automated large language model (LLM)-based evaluations that use a specialized model that is fine-tuned for medical content to assess all responses. Deploy AWS Lambda functions to parallelize evaluations. Publish results to Amazon CloudWatch metrics that track relevance and factual accuracy.
+→ Sai. Đánh giá 100% response bằng LLM,
+không có cơ chế giảm chi phí human review
+theo hướng targeted
+❌ Configure Amazon CloudWatch Synthetics to generate test queries that have known answers on a regular schedule, and track model success rates. Set up dashboards that compare synthetic test results against expected outcomes.
+→ Sai. Chỉ test với
+known-answer queries định kỳ
+(synthetic), không bao phủ được production traffic thực tế liên tục
+🔑
+Tips and tricks:
+"Giảm chi phí human review" + "phát hiện hallucination"
+→
+Hybrid: LLM-as-judge auto-screen + human chỉ cho edge cases
+(không phải 100% tự động hoặc 100% thủ công)
+
+============================================================
+
+=== Question 36 ===
+A company is using Amazon Bedrock to design an application to help researchers apply for grants. The application is based on an Amazon Nova Pro foundation model (FM). The application contains four required inputs and must provide responses in a consistent text format. The company wants to receive a notification in Amazon Bedrock if a response contains bullying language. However, the company does not want to block all flagged responses.
+The company creates an Amazon Bedrock flow that takes an input prompt and sends it to the Amazon Nova Pro FM. The Amazon Nova Pro FM provides a response.
+Which additional steps must the company take to meet these requirements? (Choose two.)
+
+A. Create an Amazon Bedrock application inference profile that specifies an Amazon Nova Pro FM. Specify the output format for the response in the description. Include a tag for each of the input variables. Add the profile to the prompts node of the flow.
+B. Use Amazon Bedrock Prompt Management to specify the required inputs as variables. Select an Amazon Nova Pro FM. Specify the output format for the response. Add the prompt to the prompts node of the flow. (CORRECT)
+C. Create an Amazon Bedrock guardrail that applies the insults content filter. Set the filter response to detect. Add the guardrail to the prompts node of the flow. (CORRECT)
+D. Create an Amazon Bedrock prompt router. Specify an Amazon Nova Pro FM. Add the required inputs as variables to the input node of the flow. Add the prompt router to the prompts node. Add the output format to the output node.
+E. Create an Amazon Bedrock guardrail that applies the hate content filter. Set the filter response to block. Add the guardrail to the prompts node of the flow.
+
+Correct answer(s): B, C
+
+Explanation:
+A.
+Create an Amazon Bedrock application inference profile that specifies an Amazon Nova Pro FM. Specify the output format for the response in the description. Include a tag for each of the input variables. Add the profile to the prompts node of the flow.
+
+============================================================
+
+=== Question 37 ===
+A company is developing a customer support application that uses Amazon Bedrock foundation models (FMs) to provide real-time AI assistance to the company's employees. The application must display AI-generated responses character by character as the responses are generated. The application needs to support thousands of concurrent users with minimal latency. The responses typically take 15 to 45 seconds to finish.
+Which solution will meet these requirements?
+
+A. Configure an Amazon API Gateway WebSocket API with an AWS Lambda integration. Configure the WebSocket API to invoke the Amazon Bedrock InvokeModelWithResponseStream API and stream partial responses through WebSocket connections. (CORRECT)
+B. Configure an Amazon API Gateway REST API with an AWS Lambda integration. Configure the REST API to invoke the Amazon Bedrock standard InvokeModel API and implement frontend client-side polling every 100 ms for complete response chunks.
+C. Implement direct frontend client connections to Amazon Bedrock by using IAM user credentials and the InvokeModelWithResponseStream API without any intermediate gateway or proxy layer.
+D. Configure an Amazon API Gateway HTTP API with an AWS Lambda integration. Configure the HTTP API to cache complete responses in an Amazon DynamoDB table and serve the responses through multiple paginated GET requests to frontend clients.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Hiển thị response
+từng ký tự khi generate
+(character by character),
+hàng nghìn user đồng thời
+,
+minimal latency
+, response mất
+15-45 giây
+✅
+Đáp án đúng:
+Configure an Amazon API Gateway WebSocket API with an AWS Lambda integration. Configure the WebSocket API to invoke the Amazon Bedrock InvokeModelWithResponseStream API and stream partial responses through WebSocket connections.
+WebSocket
+= kênh 2 chiều thời gian thực, đúng cơ chế cho "character by character"
+InvokeModelWithResponseStream
+= API streaming native của Bedrock
+Các đáp án sai:
+❌ Configure an Amazon API Gateway REST API with an AWS Lambda integration. Configure the REST API to invoke the Amazon Bedrock standard InvokeModel API and implement frontend client-side polling every 100 ms for complete response chunks.
+→ Sai. Polling liên tục mỗi 100ms với hàng nghìn user =
+tải khủng khiếp lên server
+; không phải streaming thực sự
+❌ Implement direct frontend client connections to Amazon Bedrock by using IAM user credentials and the InvokeModelWithResponseStream API without any intermediate gateway or proxy layer.
+→ Sai.
+Rủi ro bảo mật nghiêm trọng
+khi expose IAM credentials ở frontend; thiếu kiểm soát tập trung
+❌ Configure an Amazon API Gateway HTTP API with an AWS Lambda integration. Configure the HTTP API to cache complete responses in an Amazon DynamoDB table and serve the responses through multiple paginated GET requests to frontend clients.
+→ Sai. Chỉ cache
+response hoàn chỉnh sau khi xong
+, không phải hiển thị từng ký tự trong lúc generate
+🔑
+Tips and tricks:
+"Character by character" / real-time streaming display
+→
+WebSocket API + InvokeModelWithResponseStream
+Luôn loại
+polling
+khi cần real-time cho nhiều user đồng thời (tải hệ thống quá lớn)
+
+============================================================
+
+=== Question 38 ===
+A media company must use Amazon Bedrock to implement a robust governance process for AI-generated content. The company needs to manage hundreds of prompt templates. Multiple teams use the templates across multiple AWS Regions to generate content. The solution must provide version control with approval workflows that include notifications for pending reviews. The solution must also provide detailed audit trails that document prompt activities and consistent prompt parameterization to enforce quality standards.
+Which solution will meet these requirements?
+
+A. Use Amazon Bedrock Prompt Management to implement version control. Configure AWS CloudTrail for audit logging. Use IAM policies to control approval permissions. Create parameterized prompt templates by specifying variables. (CORRECT)
+B. Configure Amazon Bedrock Studio prompt templates. Use Amazon CloudWatch to create dashboards that display prompt usage metrics. Store the approval status of content in Amazon DynamoDB. Use AWS Lambda functions to enforce approvals.
+C. Deploy Amazon SageMaker Canvas with prompt templates that are stored in Amazon S3. Use AWS CloudFormation to implement version control. Use AWS Config to enforce approval policies.
+D. Use AWS Step Functions to create an approval workflow. Store prompts as documents in Amazon S3. Use tags to implement version control. Use Amazon EventBridge to send notifications.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Quản lý
+hàng trăm prompt templates
+, nhiều team, nhiều AWS Region
+Cần:
+version control
+,
+approval workflow có notification cho pending review
+,
+audit trails chi tiết
+,
+parameterization nhất quán
+✅
+Đáp án đúng:
+Use Amazon Bedrock Prompt Management to implement version control. Configure AWS CloudTrail for audit logging. Use IAM policies to control approval permissions. Create parameterized prompt templates by specifying variables.
+Bedrock Prompt Management
+là dịch vụ native chuyên biệt cho version control + parameterization prompt — đúng use case "hàng trăm templates, nhiều team"
+CloudTrail
+cung cấp audit trail chi tiết native, không cần xây dựng thêm
+Các đáp án sai:
+❌ Configure Amazon Bedrock Studio prompt templates. Use Amazon CloudWatch to create dashboards that display prompt usage metrics. Store the approval status of content in Amazon DynamoDB. Use AWS Lambda functions to enforce approvals.
+→ Sai. Phải tự xây
+Lambda + DynamoDB để enforce approval
+(custom logic) — overhead cao hơn, thiếu tính năng versioning rõ ràng
+❌ Use AWS Step Functions to create an approval workflow. Store prompts as documents in Amazon S3. Use tags to implement version control. Use Amazon EventBridge to send notifications.
+→ Sai. Có notification (EventBridge) tốt, nhưng
+version control bằng tags trong S3 là cách thủ công
+, kém hơn nhiều so với tính năng versioning native của Prompt Management; thiếu audit trail rõ ràng
+❌ Deploy Amazon SageMaker Canvas with prompt templates that are stored in Amazon S3. Use AWS CloudFormation to implement version control. Use AWS Config to enforce approval policies.
+→ Sai. SageMaker Canvas
+không phải công cụ quản lý prompt template
+; CloudFormation dùng cho infrastructure, không phù hợp cho version control nội dung prompt
+🔑
+Tips and tricks:
+"Quản lý prompt templates ở quy mô lớn, nhiều team"
+→
+Amazon Bedrock Prompt Management
+(native versioning + parameterization)
+Audit trail chi tiết cho hoạt động API/service
+→
+AWS CloudTrail
+
+============================================================
+
+=== Question 39 ===
+A company runs a generative AI (GenAI)-powered summarization application in an application AWS account that uses Amazon Bedrock. The application architecture includes an Amazon API Gateway REST API that forwards requests to AWS Lambda functions that are attached to private VPC subnets. The application summarizes sensitive customer records that the company stores in a governed data lake in a centralized data storage account. The company has enabled Amazon S3, Amazon Athena, and AWS Glue in the data storage account.
+The company must ensure that calls that the application makes to Amazon Bedrock use only private connectivity between the company's application VPC and Amazon Bedrock. The company's data lake must provide fine-grained column-level access across the company's AWS accounts.
+Which solution will meet these requirements?
+
+A. Create a gateway endpoint only for Amazon S3 in the application account. Invoke Amazon Bedrock through public endpoints. Use database-level grants in AWS Lake Formation to manage data access. Stream AWS CloudTrail logs to Amazon CloudWatch Logs. Do not set up metric filters or alarms.
+B. Run Lambda functions in private subnets. Configure a NAT gateway to provide access to Amazon Bedrock and the data lake. Use S3 bucket policies and ACLs to manage permissions. Export AWS CloudTrail logs to Amazon S3 to perform weekly reviews.
+C. In the application account, create interface VPC endpoints for Amazon Bedrock runtimes. Run Lambda functions in private subnets. Use IAM conditions on inference and data-plane policies to allow calls only to approved endpoints and roles. In the data storage account, use AWS Lake Formation LF-tag-based access control to create table and column-level cross-account grants. (CORRECT)
+D. Use VPC endpoints to provide access to Amazon Bedrock and Amazon S3 in the application account. Use only IAM path-based policies to manage data lake access. Send AWS CloudTrail logs to Amazon CloudWatch Logs. Periodically create dashboards and allow public fallback for cross-Region reads to reduce setup time.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+App gọi Bedrock phải qua
+kết nối private only
+(chỉ VPC, không public)
+Data lake cần
+fine-grained column-level access xuyên suốt các AWS accounts
+✅
+Đáp án đúng:
+In the application account, create interface VPC endpoints for Amazon Bedrock runtimes. Run Lambda functions in private subnets. Use IAM conditions on inference and data-plane policies to allow calls only to approved endpoints and roles. In the data storage account, use AWS Lake Formation LF-tag-based access control to create table and column-level cross-account grants.
+Interface VPC endpoints
+= kết nối hoàn toàn private tới Bedrock, đúng yêu cầu
+Lake Formation LF-tag-based access control
+= cơ chế chuẩn cho
+column-level cross-account grants
+Các đáp án sai:
+❌ Run Lambda functions in private subnets. Configure a NAT gateway to provide access to Amazon Bedrock and the data lake. Use S3 bucket policies and ACLs to manage permissions. Export AWS CloudTrail logs to Amazon S3 to perform weekly reviews.
+→ Sai.
+NAT gateway đi qua internet công cộng
+— vi phạm trực tiếp "private connectivity only"; S3 ACL không có column-level granularity
+❌ Create a gateway endpoint only for Amazon S3 in the application account. Invoke Amazon Bedrock through public endpoints. Use database-level grants in AWS Lake Formation to manage data access. Stream AWS CloudTrail logs to Amazon CloudWatch Logs. Do not set up metric filters or alarms.
+→ Sai. Explicitly dùng
+public endpoints cho Bedrock
+— vi phạm hoàn toàn yêu cầu
+❌ Use VPC endpoints to provide access to Amazon Bedrock and Amazon S3 in the application account. Use only IAM path-based policies to manage data lake access. Send AWS CloudTrail logs to Amazon CloudWatch Logs. Periodically create dashboards and allow public fallback for cross-Region reads to reduce setup time.
+→ Sai. Cụm
+"public fallback"
+trực tiếp vi phạm private-only; IAM path-based không đạt column-level granularity như Lake Formation
+🔑
+Tips and tricks:
+"Column-level access control xuyên account"
+→
+Lake Formation LF-tag-based access control
+(không phải IAM path-based hay S3 ACL)
+"Private connectivity only"
+→
+Interface VPC endpoints
+; luôn loại NAT gateway, public endpoint, hoặc "public fallback"
+
+============================================================
+
+=== Question 40 ===
+A medical company is building a generative AI (GenAI) application that uses RAG to provide evidence-based medical information. The application uses Amazon OpenSearch Service to retrieve vector embeddings. Users report that searches frequently miss results that contain exact medical terms and acronyms and return too many semantically similar but irrelevant documents. The company needs to improve retrieval quality and maintain low end user latency, even as the document collection grows to millions of documents.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Implement a two-stage retrieval architecture in which initial vector search results are re-ranked by an ML model that is hosted on Amazon SageMaker AI.
+B. Increase the dimensions of the vector embeddings from 384 to 1536. Use a post-processing AWS Lambda function to filter out irrelevant results after retrieval.
+C. Configure hybrid search by combining vector similarity with keyword matching to improve semantic understanding and exact term and acronym matching. (CORRECT)
+D. Replace OpenSearch Service with Amazon Kendra. Use query expansion to handle medical acronyms and terminology variants during pre-processing.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Search
+miss exact medical terms/acronyms
+, trả về
+quá nhiều kết quả semantically similar nhưng không liên quan
+Cần cải thiện chất lượng, giữ
+latency thấp
+, scale tới
+hàng triệu documents
+Yêu cầu:
+LEAST operational overhead
+✅
+Đáp án đúng:
+Configure hybrid search by combining vector similarity with keyword matching to improve semantic understanding and exact term and acronym matching.
+Hybrid search
+(vector + keyword/BM25) là tính năng
+native của OpenSearch
+, giải quyết đúng cả 2 vấn đề: miss exact terms (→ keyword matching) VÀ quá nhiều kết quả semantic sai (→ kết hợp với keyword để lọc chính xác hơn)
+Chỉ là
+thay đổi cấu hình
+, không cần thêm hạ tầng → LEAST overhead
+Các đáp án sai:
+❌ Increase the dimensions of the vector embeddings from 384 to 1536. Use a post-processing AWS Lambda function to filter out irrelevant results after retrieval.
+→ Sai. Không giải quyết vấn đề
+miss exact acronym/term
+(đó là bản chất của vector search, tăng dimension không giúp); thêm Lambda = overhead
+❌ Replace OpenSearch Service with Amazon Kendra. Use query expansion to handle medical acronyms and terminology variants during pre-processing.
+→ Sai.
+"Replace" = migration lớn
+, không phải LEAST overhead dù giải quyết được vấn đề
+❌ Implement a two-stage retrieval architecture in which initial vector search results are re-ranked by an ML model that is hosted on Amazon SageMaker AI.
+→ Sai. Phải
+host và maintain ML model riêng
+trên SageMaker = overhead vận hành cao, không giải quyết trực tiếp vấn đề exact-term matching
+🔑
+Tips and tricks:
+"Miss exact terms/acronyms" + "quá nhiều kết quả semantic không liên quan"
+→
+Hybrid Search
+(vector + keyword kết hợp), tính năng native OpenSearch
+"LEAST operational overhead"
+→ luôn ưu tiên
+thay đổi cấu hình
+hơn là
+migrate service
+hoặc
+host thêm model riêng
+
+============================================================
+
+=== Question 41 ===
+A financial services company is building a customer support application that retrieves relevant financial regulation documents from a database based on semantic similarities to user queries. The application must integrate with Amazon Bedrock to generate responses. The application must be able to search documents that are in English, Spanish, and Portuguese. The application must filter documents by metadata such as publication date, regulatory agency, and document type.
+The database stores approximately 10 million document embeddings. To minimize operational overhead, the company wants a solution that minimizes management and maintenance effort. The application must provide low-latency responses for real-time customer interactions.
+Which solution will meet these requirements?
+
+A. Use Amazon OpenSearch Serverless to provide vector search capabilities and metadata filtering. Connect to Amazon Bedrock Knowledge Bases to enable Retrieval Augmented Generation (RAG) capabilities that use an Anthropic Claude foundation model (FM). (CORRECT)
+B. Use Amazon S3 Vectors to configure a vector index and non-filterable metadata fields. Integrate S3 Vectors with Amazon Bedrock to enable Retrieval Augmented Generation (RAG) capabilities.
+C. Deploy an Amazon Aurora PostgreSQL database with the pgvector extension. Define tables to store embeddings and metadata. Use SQL queries to perform similarity searches. Send retrieved documents to Amazon Bedrock to generate responses.
+D. Set up an Amazon Neptune Analytics graph database. Configure a vector index that has appropriate dimensionality to store document embeddings. Use Amazon Bedrock to perform graph-based retrieval and to generate responses.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Semantic search tìm văn bản pháp lý tài chính bằng
+3 ngôn ngữ
+(English, Spanish, Portuguese)
+Cần
+filter theo metadata
+(publication date, regulatory agency, document type)
+10 triệu document embeddings, cần
+giảm thiểu công sức quản lý/bảo trì
+(minimize management and maintenance effort),
+low-latency
+cho real-time
+✅
+Đáp án đúng:
+Use Amazon OpenSearch Serverless to provide vector search capabilities and metadata filtering. Connect to Amazon Bedrock Knowledge Bases to enable Retrieval Augmented Generation (RAG) capabilities that use an Anthropic Claude foundation model (FM).
+OpenSearch Serverless
+= không cần quản lý cluster/capacity thủ công → đúng "minimize management effort"
+Hỗ trợ
+vector search + metadata filtering
+native, tích hợp trực tiếp với Bedrock KB (RAG built-in)
+Các đáp án sai:
+❌ Deploy an Amazon Aurora PostgreSQL database with the pgvector extension. Define tables to store embeddings and metadata. Use SQL queries to perform similarity searches. Send retrieved documents to Amazon Bedrock to generate responses.
+→ Sai. Vẫn phải
+quản lý instance database
+(patching, scaling, backup) → nhiều overhead hơn Serverless
+❌ Use Amazon S3 Vectors to configure a vector index and non-filterable metadata fields. Integrate S3 Vectors with Amazon Bedrock to enable Retrieval Augmented Generation (RAG) capabilities.
+→ Sai. Đề bài rõ ràng yêu cầu
+filter theo metadata
+, nhưng đáp án ghi rõ
+"non-filterable"
+→ mâu thuẫn trực tiếp với yêu cầu, loại ngay
+❌ Set up an Amazon Neptune Analytics graph database. Configure a vector index that has appropriate dimensionality to store document embeddings. Use Amazon Bedrock to perform graph-based retrieval and to generate responses.
+→ Sai. Đây là
+graph database
+, không cần thiết cho bài toán semantic search thuần túy dựa trên embedding; overkill
+🔑
+Tips and tricks:
+"Minimize management/maintenance effort" + vector search
+→
+OpenSearch Serverless
+(không phải managed cluster hay tự host database)
+Đọc kỹ chi tiết đáp án — nếu có từ
+"non-filterable"
+mà đề cần filter → loại ngay lập tức
+
+============================================================
+
+=== Question 42 ===
+A company is developing an internal generative AI (GenAI) assistant that uses Amazon Bedrock to summarize corporate documents for multiple business units. The GenAI assistant must generate responses in a consistent format that includes a document summary, classification of business risks, and terms that are flagged for review. The GenAI assistant must adapt the tone of responses for each user's business unit, such as legal, human resources, or finance. The GenAI assistant must block hate speech, inappropriate topics, and sensitive information such as personal health information.
+The company needs a solution to centrally manage prompt variants across business units and teams. The company wants to minimize ongoing orchestration efforts and maintenance for post-processing logic. The company also wants to have the ability to adjust content moderation criteria for the GenAI assistant over time.
+Which solution will meet these requirements with the LEAST maintenance overhead?
+
+A. Use Amazon Bedrock Prompt Management to configure reusable templates and business unit-specific prompt variants. Apply Amazon Bedrock guardrails that have category filters and sensitive term lists to block prohibited content. (CORRECT)
+B. Use Amazon Bedrock with custom prompt templates that are stored in Amazon DynamoDB. Create one AWS Lambda function to select business unit-specific prompts. Create a second Lambda function to call Amazon Comprehend to filter prohibited content from responses.
+C. Use Amazon Bedrock Prompt Management to define base templates. Enforce business unit-specific tone by using system prompt variables. Configure Amazon Bedrock guardrails to apply audience-based threshold tuning. Manage the guardrails by using an internal administration API.
+D. Use Amazon Bedrock with business unit-based instruction injection in API calls. Store response formatting rules in Amazon DynamoDB. Use AWS Step functions to validate responses. Use Amazon Comprehend to apply content filters after the GenAI assistant generates responses.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần:
+format nhất quán
+,
+tone theo business unit
+(legal, HR, finance), block
+hate speech + PII
+Cần
+quản lý tập trung prompt variants
+,
+giảm thiểu orchestration/maintenance cho post-processing
+, có thể
+điều chỉnh tiêu chí kiểm duyệt theo thời gian
+Yêu cầu:
+LEAST maintenance overhead
+✅
+Đáp án đúng:
+Use Amazon Bedrock Prompt Management to configure reusable templates and business unit-specific prompt variants. Apply Amazon Bedrock guardrails that have category filters and sensitive term lists to block prohibited content.
+Prompt Management
+quản lý tập trung prompt variants theo business unit — native, không cần hạ tầng thêm
+Guardrails category filters + sensitive term lists
+= built-in, dễ điều chỉnh theo thời gian mà không cần code
+Các đáp án sai:
+❌ Use Amazon Bedrock Prompt Management to define base templates. Enforce business unit-specific tone by using system prompt variables. Configure Amazon Bedrock guardrails to apply audience-based threshold tuning. Manage the guardrails by using an internal administration API.
+→ Sai. Việc
+tự xây dựng internal administration API
+để quản lý guardrail = thêm một hệ thống custom phải maintain → tăng overhead không cần thiết
+❌ Use Amazon Bedrock with business unit-based instruction injection in API calls. Store response formatting rules in Amazon DynamoDB. Use AWS Step functions to validate responses. Use Amazon Comprehend to apply content filters after the GenAI assistant generates responses.
+→ Sai. Toàn bộ là
+logic custom tự xây
+(DynamoDB rules, Step Functions validate, Comprehend riêng) → overhead cao nhất
+❌ Use Amazon Bedrock with custom prompt templates that are stored in Amazon DynamoDB. Create one AWS Lambda function to select business unit-specific prompts. Create a second Lambda function to call Amazon Comprehend to filter prohibited content from responses.
+→ Sai. Cũng là
+hệ thống tự xây hoàn toàn
+, không tận dụng tính năng native của Bedrock
+🔑
+Tips and tricks:
+"LEAST maintenance overhead" + quản lý prompt tập trung
+→
+Bedrock Prompt Management + Guardrails native
+(tránh các đáp án có "internal API" hoặc custom Lambda/DynamoDB logic)
+
+============================================================
+
+=== Question 43 ===
+An ecommerce company operates a global product recommendation system that needs to switch between multiple foundation models (FM) in Amazon Bedrock based on regulations, cost optimization, and performance requirements. The company must apply custom controls based on proprietary business logic, including dynamic cost thresholds, AWS Region-specific compliance rules, and real-time A/B testing across multiple FMs. The system must be able to switch between FMs without deploying new code. The system must route user requests based on complex rules including user tier, transaction value, regulatory zone, and real-time cost metrics that change hourly and require immediate propagation across thousands of concurrent requests.
+Which solution will meet these requirements?
+
+A. Configure an AWS Lambda function to fetch routing configurations from the AWS AppConfig Agent for each user request. Run business logic in the Lambda function to select the appropriate FM for each request. Expose the FM through a single Amazon API Gateway REST API endpoint. (CORRECT)
+B. Deploy Amazon API Gateway REST API request transformation templates to implement routing logic based on request attributes. Store Amazon Bedrock FM endpoints as REST API stage variables. Update the variables when the system switches between models.
+C. Deploy an AWS Lambda function that uses environment variables to store routing rules and Amazon Bedrock FM IDs. Use the Lambda console to update the environment variables when business requirements change. Configure an Amazon API Gateway REST API to read request parameters to make routing decisions.
+D. Use AWS Lambda authorizers for an Amazon API Gateway REST API to evaluate routing rules that are stored in AWS AppConfig. Return authorization contexts based on business logic. Route requests to model-specific Lambda functions for each Amazon Bedrock FM.
+
+Correct answer(s): A
+
+Explanation:
+📝
+Tóm tắt đề:
+Switch giữa nhiều FM dựa trên
+business logic phức tạp
+(cost threshold, region compliance, A/B testing)
+Cần route theo
+user tier, transaction value, regulatory zone, real-time cost metrics thay đổi theo giờ
+Yêu cầu:
+switch mà không deploy code mới
+,
+propagation ngay lập tức
+(immediate) trên hàng nghìn request đồng thời
+✅
+Đáp án đúng:
+Configure an AWS Lambda function to fetch routing configurations from the AWS AppConfig Agent for each user request. Run business logic in the Lambda function to select the appropriate FM for each request. Expose the FM through a single Amazon API Gateway REST API endpoint.
+AWS AppConfig
+cho phép cập nhật cấu hình
+động, propagate nhanh
+mà
+không cần deploy lại code
+Lambda chạy business logic phức tạp mỗi request, đúng yêu cầu routing rules phức tạp thay đổi theo giờ
+Các đáp án sai:
+❌ Deploy an AWS Lambda function that uses environment variables to store routing rules and Amazon Bedrock FM IDs. Use the Lambda console to update the environment variables when business requirements change. Configure an Amazon API Gateway REST API to read request parameters to make routing decisions.
+→ Sai. Cập nhật env variables đòi hỏi
+update function configuration thủ công
+, propagation chậm, không phù hợp "immediate" cho hàng nghìn request
+❌ Deploy Amazon API Gateway REST API request transformation templates to implement routing logic based on request attributes. Store Amazon Bedrock FM endpoints as REST API stage variables. Update the variables when the system switches between models.
+→ Sai. Cập nhật stage variables cũng cần
+redeploy API stage
+, không đủ nhanh/linh hoạt cho complex business logic thay đổi hourly
+❌ Use AWS Lambda authorizers for an Amazon API Gateway REST API to evaluate routing rules that are stored in AWS AppConfig. Return authorization contexts based on business logic. Route requests to model-specific Lambda functions for each Amazon Bedrock FM.
+→ Sai.
+Lambda authorizer thiết kế cho authentication/authorization
+, không phải cơ chế phù hợp để chạy business logic routing phức tạp; kiến trúc nhiều Lambda riêng cho mỗi FM cũng phức tạp hơn không cần thiết
+🔑
+Tips and tricks:
+"Switch FM không cần deploy code" + "immediate propagation"
+→
+AWS AppConfig
+(dynamic configuration, không phải environment variables hay stage variables tĩnh)
+Cẩn thận đáp án dùng sai mục đích service (vd: Lambda authorizer cho business logic routing thay vì auth)
+
+============================================================
+
+=== Question 44 ===
+A company has deployed an AI assistant as a React application that uses AWS Amplify, an AWS AppSync GraphQL API, and Amazon Bedrock Knowledge Bases. The application uses the GraphQL API to call the Amazon Bedrock RetrieveAndGenerate API for knowledge base interactions. The company configures an AWS Lambda resolver to use the RequestResponse invocation type.
+Application users report frequent timeouts and slow response times. Users report these problems more frequently for complex questions that require longer processing.
+The company needs a solution to fix these performance issues and enhance the user experience.
+Which solution will meet these requirements?
+
+A. Update the application to send an API request to an Amazon SQS queue. Update the AWS AppSync resolver to poll and process the queue.
+B. Increase the timeout value of the Lambda resolver. Implement retry logic with exponential backoff.
+C. Change the RetrieveAndGenerate API to the InvokeModelWithResponseStream API. Update the application to use an Amazon API Gateway WebSocket API to support the streaming response.
+D. Use AWS Amplify AI Kit to implement streaming responses from the GraphQL API and to optimize client-side rendering. (CORRECT)
+
+Correct answer(s): D
+
+Explanation:
+📝
+Tóm tắt đề:
+React app dùng Amplify + AppSync GraphQL + Bedrock KB, Lambda resolver dùng
+RequestResponse invocation type
+Vấn đề:
+timeout + chậm
+với câu hỏi phức tạp cần xử lý lâu hơn
+✅
+Đáp án đúng:
+Configure an AWS Lambda function to fetch routing configurations from the AWS AppConfig Agent for each user request. Run business logic in the Lambda function to select the appropriate FM for each request. Expose the FM through a single Amazon API Gateway REST API endpoint.
+Amplify AI Kit
+là tính năng được thiết kế riêng cho stack này (Amplify + AppSync + Bedrock), hỗ trợ
+streaming response native
+qua GraphQL subscriptions — giải quyết đúng vấn đề timeout do chờ phản hồi đầy đủ
+Tận dụng kiến trúc hiện có, không cần thay đổi lớn (least overhead, native fit)
+Các đáp án sai:
+❌ Increase the timeout value of the Lambda resolver. Implement retry logic with exponential backoff.
+→ Sai. Đây chỉ là
+band-aid fix
+(kéo dài thời gian chờ), không giải quyết gốc rễ vấn đề UX chậm; retry không giúp gì khi vấn đề là xử lý lâu
+❌ Update the application to send an API request to an Amazon SQS queue. Update the AWS AppSync resolver to poll and process the queue.
+→ Sai. Thêm phức tạp không cần thiết, polling không mang lại trải nghiệm real-time streaming thực sự
+❌ Change the RetrieveAndGenerate API to the InvokeModelWithResponseStream API. Update the application to use an Amazon API Gateway WebSocket API to support the streaming response.
+→ Sai. Đòi hỏi
+thay thế hoàn toàn kiến trúc GraphQL/AppSync
+hiện có bằng WebSocket riêng — tái kiến trúc lớn, không tận dụng hạ tầng Amplify đã đầu tư
+🔑
+Tips and tricks:
+Stack Amplify + AppSync + Bedrock bị timeout với câu hỏi phức tạp
+→
+Amplify AI Kit
+(tính năng streaming native tích hợp sẵn cho đúng stack này)
+Ưu tiên giải pháp tận dụng kiến trúc hiện có hơn là tái xây dựng toàn bộ (trừ khi đề yêu cầu rõ ràng)
+
+============================================================
+
+=== Question 45 ===
+A finance company is developing an AI assistant to help clients plan investments and manage their portfolios. The company identifies several high-risk conversation patterns such as requests for specific stock recommendations or guaranteed returns. High-risk conversation patterns could lead to regulatory violations if the company cannot implement appropriate controls.
+The company must ensure that the AI assistant does not provide inappropriate financial advice, generate content about competitors, or make claims that are not factually grounded in the company's approved financial guidance. The company wants to use Amazon Bedrock Guardrails to implement a solution.
+Which combination of steps will meet these requirements? (Choose three.)
+
+A. Add the high-risk conversation patterns to a denied topics guardrail. (CORRECT)
+B. Set a low grounding score threshold.
+C. Configure a content filter guardrail to filter prompts that contain the high-risk conversation patterns.
+D. Set a high grounding score threshold. (CORRECT)
+E. Configure a content filter guardrail to filter prompts that contain competitor names.
+F. F. Add the names of competitors as custom word filters. Set the input and output actions to block. (CORRECT)
+
+Correct answer(s): A, D, F
+
+Explanation:
+A.
+Add the high-risk conversation patterns to a denied topics guardrail.
+
+============================================================
+
+=== Question 46 ===
+A retail company has a generative AI (GenAI) product recommendation application that uses Amazon Bedrock. The application suggests products to customers based on browsing history and demographics. The company needs to implement fairness evaluation across multiple demographic groups to detect and measure bias in recommendations between two prompt approaches. The company wants to collect and monitor fairness metrics in real time. The company must receive an alert if the fairness metrics show a discrepancy of more than 15% between demographic groups. The company must receive weekly reports that compare the performance of the two prompt approaches.
+Which solution will meet these requirements with the LEAST custom development effort?
+
+A. Create an Amazon Bedrock model evaluation job to compare fairness between the two prompt variants. Enable model invocation logging in Amazon CloudWatch. Set up CloudWatch alarms for InvocationsIntervened metrics with a dimension for each demographic group.
+B. Configure an Amazon CloudWatch dashboard to display default metrics from Amazon Bedrock API calls. Create custom metrics based on model outputs. Set up Amazon EventBridge rules to invoke AWS lambda functions that perform post-processing analysis on model responses and publish custom fairness metrics.
+C. Set up Amazon SageMaker Clarify to analyze model outputs. Publish fairness metrics to Amazon CloudWatch. Create CloudWatch composite alarms that combine SageMaker Clarify bias metrics with Amazon Bedrock latency metrics to provide a comprehensive fairness evaluation dashboard. (CORRECT)
+D. Create the two prompt variants in Amazon Bedrock Prompt Management. Use Amazon Bedrock Flows to deploy the prompt variants with defined traffic allocation. Configure Amazon Bedrock guardrails that have content filters to monitor demographic fairness. Set up Amazon CloudWatch alarms on the GuardrailContentSource dimension that use InvocationsIntervened metrics to detect recommendation discrepancy threshold violations.
+
+Correct answer(s): C
+
+Explanation:
+📝
+Tóm tắt đề:
+Cần
+đo lường bias
+giữa các nhóm nhân khẩu học (demographic groups) cho 2 cách tiếp cận prompt khác nhau
+Alert khi discrepancy >15%
+,
+báo cáo hàng tuần
+Yêu cầu:
+LEAST custom development effort
+✅
+Đáp án đúng:
+Set up Amazon SageMaker Clarify to analyze model outputs. Publish fairness metrics to Amazon CloudWatch. Create CloudWatch composite alarms that combine SageMaker Clarify bias metrics with Amazon Bedrock latency metrics to provide a comprehensive fairness evaluation dashboard.
+SageMaker Clarify
+là dịch vụ
+chuyên biệt được thiết kế riêng
+để đo bias/fairness giữa các nhóm nhân khẩu học (facets) — đúng use case, không cần tự xây logic đo fairness
+Publish trực tiếp lên CloudWatch, tận dụng composite alarms native cho threshold >15%
+Các đáp án sai:
+❌ Configure an Amazon CloudWatch dashboard to display default metrics from Amazon Bedrock API calls. Create custom metrics based on model outputs. Set up Amazon EventBridge rules to invoke AWS lambda functions that perform post-processing analysis on model responses and publish custom fairness metrics.
+→ Sai. Phải
+tự viết logic phân tích fairness
+trong Lambda từ đầu — effort cao nhất, không dùng công cụ chuyên biệt nào
+❌ Create the two prompt variants in Amazon Bedrock Prompt Management. Use Amazon Bedrock Flows to deploy the prompt variants with defined traffic allocation. Configure Amazon Bedrock guardrails that have content filters to monitor demographic fairness. Set up Amazon CloudWatch alarms on the GuardrailContentSource dimension that use InvocationsIntervened metrics to detect recommendation discrepancy threshold violations.
+→ Sai.
+Guardrails content filters không có chức năng đo fairness/bias theo nhóm nhân khẩu học
+— đây không phải công dụng thực sự của content filters, sai công cụ
+❌ Create an Amazon Bedrock model evaluation job to compare fairness between the two prompt variants. Enable model invocation logging in Amazon CloudWatch. Set up CloudWatch alarms for InvocationsIntervened metrics with a dimension for each demographic group.
+→ Sai.
+InvocationsIntervened
+là metric đo
+số lần guardrail can thiệp
+, không phải metric đo
+fairness/bias giữa các nhóm demographic
+— sai loại metric cho mục đích này
+🔑
+Tips and tricks:
+"Đo bias/fairness giữa các nhóm demographic"
+→
+Amazon SageMaker Clarify
+(công cụ AWS chuyên biệt duy nhất cho bias detection theo facets/groups)
+Cẩn thận với đáp án gán sai chức năng cho metric/service (Guardrails content filter ≠ đo fairness; InvocationsIntervened ≠ đo bias demographic)
+
+============================================================
