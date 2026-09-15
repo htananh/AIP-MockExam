@@ -356,8 +356,10 @@
     if (!res.ok) throw new Error(await res.text());
   }
   async function sbList(examId) {
-    const url = SB_URL + "/rest/v1/exam_results?device_id=eq." + encodeURIComponent(deviceId) +
-      "&exam_id=eq." + encodeURIComponent(examId) + "&order=created_at.desc";
+    // USER_ID trống: lấy tất cả lần làm của đề; có USER_ID: lọc riêng theo người dùng
+    let url = SB_URL + "/rest/v1/exam_results?exam_id=eq." + encodeURIComponent(examId) +
+      "&order=created_at.desc";
+    if (window.USER_ID) url += "&device_id=eq." + encodeURIComponent(window.USER_ID);
     const res = await fetch(url, { headers: sbHeaders() });
     if (!res.ok) throw new Error(await res.text());
     return (await res.json()).map((r) => ({
@@ -366,8 +368,8 @@
     }));
   }
   async function sbClear(examId) {
-    const url = SB_URL + "/rest/v1/exam_results?device_id=eq." + encodeURIComponent(deviceId) +
-      "&exam_id=eq." + encodeURIComponent(examId);
+    let url = SB_URL + "/rest/v1/exam_results?exam_id=eq." + encodeURIComponent(examId);
+    if (window.USER_ID) url += "&device_id=eq." + encodeURIComponent(window.USER_ID);
     const res = await fetch(url, { method: "DELETE", headers: sbHeaders({ Prefer: "return=minimal" }) });
     if (!res.ok) throw new Error(await res.text());
   }
