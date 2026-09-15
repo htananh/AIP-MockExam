@@ -334,6 +334,8 @@
   const EXAMS = window.EXAMS || [];
   const TOTAL = 3 * 60 * 60; // seconds
   const practiceMode = new URLSearchParams(location.search).get("mode") === "practice";
+  const historyMode = new URLSearchParams(location.search).get("history") === "1";
+  const noTimer = practiceMode || historyMode; // chỉ thi thử mới có đồng hồ + pause
   const el = (id) => document.getElementById(id);
   const escape = (s) => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -700,7 +702,7 @@
     reviewData = null;
     el("reviewBanner").style.display = "none";
     idx = Math.min(state.idx || 0, exam.questions.length - 1);
-    if (!practiceMode) start(); // tiếp tục đếm giờ sau khi thoát review
+    if (!noTimer) start(); // tiếp tục đếm giờ sau khi thoát review (chỉ thi thử)
     render();
   }
 
@@ -756,7 +758,7 @@
     t.classList.toggle("danger", remaining <= 300);
   }
   function start() {
-    if (practiceMode) return; // chế độ thực hành: không tính giờ
+    if (noTimer) return; // chỉ chế độ thi thử mới tính giờ
     running = true;
     el("pauseBtn").textContent = "⏸ Pause";
     el("pauseOverlay").classList.remove("show");
@@ -844,11 +846,13 @@
   loadExam(wantedExam && EXAMS.some((e) => e.id === wantedExam) ? wantedExam : EXAMS[0].id);
   if (params.get("history") === "1") openHistory();
 
-  if (practiceMode) {
+  if (noTimer) {
     el("timer").style.display = "none";
     el("pauseBtn").style.display = "none";
     const lbl = document.querySelector(".timer-wrap .lbl");
-    if (lbl) lbl.textContent = "🧪 Chế độ thực hành — không tính giờ";
+    if (lbl) lbl.textContent = practiceMode
+      ? "🧪 Chế độ thực hành — không tính giờ"
+      : "📊 Xem lại lịch sử — không tính giờ";
   }
 
   // Thông báo trạng thái lưu kết quả
