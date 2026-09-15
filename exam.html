@@ -721,8 +721,10 @@
   window.addEventListener("beforeunload", saveState);
 
   buildExamSelect();
-  const wantedExam = new URLSearchParams(location.search).get("exam");
+  const params = new URLSearchParams(location.search);
+  const wantedExam = params.get("exam");
   loadExam(wantedExam && EXAMS.some((e) => e.id === wantedExam) ? wantedExam : EXAMS[0].id);
+  if (params.get("history") === "1") openHistory();
 
   // Thông báo trạng thái lưu kết quả
   if (!sbEnabled) {
