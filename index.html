@@ -27,10 +27,11 @@
   .badge.progress{background:var(--accent-soft);color:var(--accent-dark)}
   .start{margin-top:auto;display:inline-block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:11px 16px;border-radius:8px;transition:background .15s}
   .start:hover{background:var(--accent-dark)}
-  .card-actions{margin-top:auto;display:flex;gap:10px}
-  .card-actions .start{margin-top:0;flex:1}
-  .history-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:15px;padding:11px 14px;border-radius:8px;border:1px solid var(--border);color:var(--accent-dark);background:#fff;transition:background .15s}
-  .history-link:hover{background:var(--accent-soft)}
+  .card-actions{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+  .card-actions .start{margin-top:0}
+  .sub-actions{display:flex;gap:10px}
+  .sub-actions a{flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:14px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);color:var(--accent-dark);background:#fff;transition:background .15s}
+  .sub-actions a:hover{background:var(--accent-soft)}
   .empty{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:40px;text-align:center;color:var(--muted)}
 </style>
 </head>
@@ -87,8 +88,11 @@
       `<div class="meta">${e.questions.length} câu hỏi · 3 giờ</div>` +
       (badges ? `<div class="badges">${badges}</div>` : "") +
       `<div class="card-actions">` +
-        `<a class="start" href="exam.html?exam=${encodeURIComponent(e.id)}">${doing ? "Tiếp tục làm bài" : "Bắt đầu làm bài"}</a>` +
-        `<a class="history-link" href="exam.html?exam=${encodeURIComponent(e.id)}&history=1" title="Xem lịch sử làm bài">📊 Lịch sử</a>` +
+        `<a class="start" href="exam.html?exam=${encodeURIComponent(e.id)}">${doing ? "Tiếp tục làm bài" : "Thi thử (tính giờ 3h)"}</a>` +
+        `<div class="sub-actions">` +
+          `<a href="exam.html?exam=${encodeURIComponent(e.id)}&mode=practice" title="Luyện tập, không tính giờ">🧪 Thực hành</a>` +
+          `<a href="exam.html?exam=${encodeURIComponent(e.id)}&history=1" title="Xem lịch sử làm bài">📊 Lịch sử</a>` +
+        `</div>` +
       `</div>`;
 
     grid.appendChild(card);

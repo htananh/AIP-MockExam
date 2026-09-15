@@ -312,6 +312,7 @@
 (function () {
   const EXAMS = window.EXAMS || [];
   const TOTAL = 3 * 60 * 60; // seconds
+  const practiceMode = new URLSearchParams(location.search).get("mode") === "practice";
   const el = (id) => document.getElementById(id);
   const escape = (s) => (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -636,6 +637,7 @@
     t.classList.toggle("danger", remaining <= 300);
   }
   function start() {
+    if (practiceMode) return; // chế độ thực hành: không tính giờ
     running = true;
     el("pauseBtn").textContent = "⏸ Pause";
     el("pauseOverlay").classList.remove("show");
@@ -725,6 +727,14 @@
   const wantedExam = params.get("exam");
   loadExam(wantedExam && EXAMS.some((e) => e.id === wantedExam) ? wantedExam : EXAMS[0].id);
   if (params.get("history") === "1") openHistory();
+
+  if (practiceMode) {
+    el("timer").style.display = "none";
+    el("pauseBtn").style.display = "none";
+    el("resetTimerBtn").style.display = "none";
+    const lbl = document.querySelector(".timer-wrap .lbl");
+    if (lbl) lbl.textContent = "🧪 Chế độ thực hành — không tính giờ";
+  }
 
   // Thông báo trạng thái lưu kết quả
   if (!sbEnabled) {
