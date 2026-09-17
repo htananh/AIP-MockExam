@@ -269,7 +269,6 @@
 
     <div class="answer-box" id="answerBox">
       <div class="answer-head" id="answerHead"></div>
-      <div class="explanation" id="explanation"></div>
     </div>
 
     <div class="nav">
@@ -544,7 +543,6 @@
     el("answerHead").innerHTML =
       `Correct answer: <span class="ok">${escape(answer)}</span> &nbsp;|&nbsp; Your answer: ${escape(chosen)} ` +
       (sel.size ? (isRight ? "✅" : "❌") : "");
-    el("explanation").textContent = q.explanation || "(no explanation)";
     el("answerBox").classList.add("show");
   }
 
@@ -671,7 +669,6 @@
         `<div class="options">${opts}</div>` +
         `<div class="answer-box show">` +
           `<div class="answer-head">Correct answer: <span class="ok">${escape(answer)}</span> &nbsp;|&nbsp; Your answer: ${escape(chosen)} ${mark}</div>` +
-          `<div class="explanation">${escape(q.explanation || "(no explanation)")}</div>` +
         `</div>` +
       `</div>`;
     }).join("");
